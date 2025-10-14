@@ -41,8 +41,8 @@ This platform allows parents and families to:
 * Supported types:
 
   * Images: jpg, png, gif
-  * Videos: mp4, mov
-  * Audio: mp3, wav
+  * Videos: mp4, m4a
+  * Audio: mp3
 * File validation and storage (local or cloud)
 * Delete or replace media
 
@@ -94,8 +94,8 @@ This platform allows parents and families to:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/family-memories.git
-cd family-memories
+git clone https://github.com/Cris-T14N0/Memini
+cd Memini
 ```
 
 2. Copy the environment file:

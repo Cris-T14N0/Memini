@@ -21,9 +21,6 @@ return new class extends Migration {
             $table->timestamp('deliver_at')->nullable(); // For scheduled email delivery
             $table->timestamp('expires_at')->nullable(); // For link expiration
             $table->timestamps();
-
-            // Optional: Ensure exactly one of project_id or album_id is set
-            $table->checkConstraint('(project_id IS NOT NULL AND album_id IS NULL) OR (project_id IS NULL AND album_id IS NOT NULL)', 'check_project_or_album');
         });
     }
 

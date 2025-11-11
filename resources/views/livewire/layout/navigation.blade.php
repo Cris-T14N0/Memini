@@ -49,7 +49,7 @@ new class extends Component {
         <!-- Logo -->
         <div class="flex items-center justify-center px-6 pt-3 ">
             <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center gap-2 px-4 py-2 rounded-full transition-colors">
-                <img src="{{ asset('assets/logocris.png') }}" alt="">
+                <img src="{{ asset('assets/img/logo-dark.png') }}" alt="">
 
             </a>
         </div>

@@ -62,6 +62,7 @@ new class extends Component {
 
         <!-- Navigation Links -->
         <div class="flex-1 mt-8 space-y-2 px-4">
+
             <!-- Dashboard Link -->
             <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                 @if(request()->routeIs('dashboard'))
@@ -77,8 +78,12 @@ new class extends Component {
             </a>
 
             <!-- Pastas Link -->
-            <a href="{{ route('dashboard') }}" wire:navigate
-                class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50">
+            <a href="{{ route('pastas-dashboard') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                @if(request()->routeIs('pastas-dashboard'))
+                    bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm
+                @else
+                    text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50
+                @endif">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
@@ -86,14 +91,30 @@ new class extends Component {
                 <span class="font-medium">Pastas</span>
             </a>
 
-            <!-- Álbum Link -->
-            <a href="{{ route('dashboard') }}" wire:navigate
-                class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50">
+            <!-- Projetos Link -->
+            <a href="{{ route('projetos-dashboard') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                @if(request()->routeIs('projetos-dashboard'))
+                    bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm
+                @else
+                    text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50
+                @endif">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
-                <span class="font-medium">Álbum</span>
+                <span class="font-medium">Projetos</span>
+            </a>
+
+            <!-- Álbum Link -->
+            <a href="{{ route('dashboard') }}" wire:navigate
+                class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 4h7.5a1.5 1.5 0 0 1 1.5 1.5v13a1.5 1.5 0 0 1-1.5 1.5H12m0-16v16m0-16H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6m0-16v16" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h3m-3 3h3m-3 3h3" />
+                </svg>
+                <span class="font-medium">Álbuns</span>
             </a>
         </div>
 

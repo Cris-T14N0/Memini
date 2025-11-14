@@ -28,7 +28,7 @@
                     <a href="#solucoes" class="nav-link">Soluções</a>
                     <a href="#contacto" class="nav-link">Contactos</a>
                 </div>
-                <a href="#login" class="btn-primary">Login →</a>
+                <a href="{{ route('dashboard') }}" class="btn-primary">Login →</a>
             </div>
         </div>
     </nav>

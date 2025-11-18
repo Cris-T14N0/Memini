@@ -15,45 +15,41 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="nav-bar">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                logo
-                <div class="flex items-center space-x-2">
-                    <img src="caminho/para/logo.png" alt="Memini Logo" class="w-12 h-12 object-contain">
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="nav-link">Home</a>
-                    <a href="#sobre" class="nav-link">Sobre nós</a>
-                    <a href="#solucoes" class="nav-link">Soluções</a>
-                    <a href="#contacto" class="nav-link">Contactos</a>
-                </div>
+    <nav class="nav-bar shadow-md">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex-shrink-0">
+                <img src="http://localhost/assets/img/logo-dark.png" alt="Memini Logo" class="object-contain">
+            </div>
+
+            <div class="hidden md:flex flex-1 justify-center space-x-8">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#sobre" class="nav-link">Sobre nós</a>
+                <a href="#solucoes" class="nav-link">Soluções</a>
+                <a href="#contacto" class="nav-link">Contactos</a>
+            </div>
+
+            <div class="flex-shrink-0">
                 <a href="{{ route('dashboard') }}" class="btn-primary">Login →</a>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
+
 
     <!-- Hero Section -->
-    <section class="relative py-20 overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <svg class="w-full h-full" viewBox="0 0 1000 300" preserveAspectRatio="none">
-                <path d="M0,100 Q250,50 500,100 T1000,100 L1000,300 L0,300 Z" fill="currentColor" class="wave-1"/>
-                <path d="M0,150 Q250,100 500,150 T1000,150 L1000,300 L0,300 Z" fill="currentColor" class="wave-2"/>
-                <path d="M0,200 Q250,150 500,200 T1000,200 L1000,300 L0,300 Z" fill="currentColor" class="wave-3"/>
-            </svg>
-        </div>
-        <div class="container mx-auto px-6 text-center relative z-10">
-            <h1 class="hero-title text-5xl md:text-6xl font-bold mb-4">Memini</h1>
-            <p class="hero-subtitle text-xl">A tua aplicação virtual familiar para sempre!</p>
-        </div>
+    <section class="hero relative py-20 overflow-hidden">
+    <div class="container mx-auto px-6 text-center relative z-10">
+        <h1 class="hero-title text-5xl md:text-6xl font-bold mb-4">Memini</h1>
+        <p class="hero-subtitle text-xl">A sua aplicação de cloud familiar e pessoal.</p>
+    </div>
     </section>
 
-    <!-- (restante conteúdo mantém-se exatamente igual ao teu) -->
     <!-- Confiado por -->
-    <section class="py-12">
+    <section class="trusted-section py-12">
         <div class="container mx-auto px-6 text-center">
-            <h3 class="text-secondary text-lg mb-4">Confiado por:</h3>
-            <p class="text-muted text-sm">Famílias por todo o país</p>
+            <h3 class="trusted-title mb-2">Confiado por:</h3>
+            <p class="trusted-subtitle text-muted text-sm">Famílias por todo o globo</p>
         </div>
     </section>
 
@@ -120,8 +116,11 @@
                 <h3 class="price-title text-3xl font-bold mb-4">É gratuito!</h3>
                 <p class="price-subtitle mb-6">A nossa aplicação é 100% gratuita para todas famílias.</p>
                 <p class="price-text text-sm max-w-xl mx-auto leading-relaxed">
-                    Esta projeto é sustentado pelo nosso português, através de um programa de apoio de financiamento que começamos aqui nos estudantes da escola superior de Viana do Castelo. 
-                    Chegámos aqui depois sobretudo por estudos profundos baleáricas de gratuitos, ligados à própria família, pois fazem os Profetas genéricos e guarda de suas memórias.
+                    A nossa aplicação é 100% gratuita para todas as famílias.
+
+                    Este projeto é sustentado pelo Estado português, através de um programa que apoia iniciativas dedicadas a fortalecer os laços familiares e incentivar a natalidade em Portugal.
+                    
+                    Graças a este apoio, conseguimos oferecer uma plataforma totalmente gratuita, segura e privada, para que todas as famílias possam guardar e partilhar as suas memórias sem custos.
                 </p>
             </div>
         </div>

@@ -3,7 +3,7 @@
     --primary: #ABC39A; 
     --secondary: #30362B; 
     --accent: #38bdf8; 
-    --text: #222;
+    --text: #30362B;
 }
 
 body {
@@ -106,7 +106,7 @@ body {
     position: absolute;
     inset: 0;
     background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1440 900' xmlns='http://www.w3.org/2000/svg'><path d='M0 450 C400 530 900 480 1440 100' stroke='%237F8F7333' stroke-width='3' fill='none'/><path d='M0 458 C420 540 900 495 1440 150' stroke='%237F8F7333' stroke-width='3' fill='none'/><path d='M0 468 C450 555 900 510 1440 210' stroke='%237F8F7333' stroke-width='3' fill='none'/><path d='M0 480 C500 575 900 530 1440 280' stroke='%237F8F7333' stroke-width='3' fill='none'/><path d='M0 495 C560 600 900 560 1440 360' stroke='%237F8F7333' stroke-width='3' fill='none'/><path d='M0 515 C630 630 900 600 1440 450' stroke='%237F8F7333' stroke-width='3' fill='none'/><path d='M0 540 C700 670 900 640 1440 540' stroke='%237F8F7333' stroke-width='3' fill='none'/><path d='M0 570 C780 720 900 690 1440 650' stroke='%237F8F7333' stroke-width='3' fill='none'/><path d='M0 610 C860 790 900 740 1440 770' stroke='%237F8F7333' stroke-width='3' fill='none'/></svg>") center/cover no-repeat;
-    opacity: 0.45;    
+    opacity: 0.96;    
     z-index: 0;
 }
 
@@ -115,7 +115,7 @@ body {
     z-index: 10;
 }
 
-/* Trusted Section */
+/* Confiado por */
 .trusted-section {
     background-color: #FFFFFF; 
     padding: 3rem 1.5rem;
@@ -220,7 +220,7 @@ section.py-16 {
 section.py-16 .section-title {
     font-size: 2.25rem;
     font-weight: bold;
-    background: linear-gradient(90deg, #4B5549 30%, #30362B 70%);
+    background: linear-gradient(90deg, #4B5549 30%, #a6b798 70%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
@@ -260,6 +260,507 @@ section.py-16 .text-secondary {
     max-width: 36rem;
     margin: 0 auto;
 }
+
+/* Secção Quem Somos */
+#sobre.section-light {
+    background-color: #E8F4E0 !important;
+}
+
+.section-light {
+    background-color: #E8F4E0;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    text-align: center;
+}
+
+.section-light .section-title {
+    font-size: 2.25rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #ABC39A, #30362B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.section-light .text-secondary {
+    color: #30362B;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+}
+
+/* Caixa branca semelhante à secção de preços */
+.about-text {
+    background-color: #ffffff;
+    padding: 2rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    color: #30362B;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* Secção Valores */
+section.py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    background-color: #faf7ff;
+}
+
+section.py-16 .section-title {
+    font-size: 2.25rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #ABC39A 30%, #30362B 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+section.py-16 .text-secondary {
+    color: #6b7280;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+}
+
+/* Imagem Hero com overlay */
+section.py-16 .relative {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+section.py-16 .absolute.inset-0 {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+section.py-16 .absolute.inset-0 .p-8 {
+    text-align: left;
+    max-width: 100%;
+}
+
+.mission-label {
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-align: left;
+}
+
+.mission-title {
+    color: white;
+    line-height: 1.3;
+    text-align: left;
+}
+
+/* Cards de valores */
+.value-card {
+    background-color: #C1D4BD;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.value-label {
+    color: #30362B;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.value-title {
+    color: #30362B;
+    line-height: 1.3;
+}
+
+.value-text {
+    color: #30362B;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+}
+
+/* Botão */
+.btn-secondary {
+    background-color: #30362B;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #ABC39A;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Secção FAQ */
+.faq-section {
+    background-color: #E8F4E0 !important;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+/* Container FAQ com layout 50/50 - APENAS para FAQ */
+.faq-section .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Coluna esquerda - Título, descrição e botão */
+.faq-section .container > div:first-child {
+    display: flex;
+    flex-direction: column;
+}
+
+.faq-section .section-title {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #30362B;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+/* Texto descritivo abaixo do FAQ */
+.faq-description {
+    color: #30362B;
+    font-size: 0.9375rem;
+    text-align: left;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* Botão fica fixo na coluna esquerda */
+.faq-section .text-center {
+    text-align: left;
+    margin-top: 0;
+}
+
+/* FAQ Items - Coluna direita */
+.faq-section .max-w-3xl {
+    max-width: 100%;
+}
+
+.faq-item {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s;
+}
+
+.faq-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.faq-item[open] {
+    background-color: white;
+}
+
+.faq-question {
+    color: #30362B;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+
+.faq-question::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item[open] .faq-question svg {
+    transform: rotate(180deg);
+}
+
+.faq-question svg {
+    color: #30362B;
+    flex-shrink: 0;
+    margin-left: 1rem;
+    transition: transform 0.3s;
+}
+
+.faq-answer {
+    color: #6b7280;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Espaçamento entre items */
+.space-y-4 > * + * {
+    margin-top: 1rem;
+}
+
+/* Botão FAQ */
+.faq-section .btn-secondary {
+    background-color: #30362B;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+.faq-section .btn-secondary:hover {
+    background-color: #ABC39A;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Responsivo - mobile */
+@media (max-width: 768px) {
+    .faq-section .container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .faq-section .text-center {
+        text-align: center;
+    }
+}
+
+/* Secção Contacto */
+#contacto {
+    background-color: #E8F4E0;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Grid Layout - Form à esquerda, Info à direita */
+#contacto .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Cada campo do formulário com fundo branco */
+#contacto form > div {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Labels do formulário */
+.form-label {
+    color: #30362B;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+/* Inputs do formulário */
+.form-input {
+    background-color: white;
+    border: 2px solid #ABC39A;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    font-size: 0.875rem;
+    color: #30362B;
+    transition: all 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #30362B;
+    box-shadow: 0 0 0 3px rgba(171, 195, 154, 0.1);
+}
+
+.form-input::placeholder {
+    color: #9ca3af;
+    font-size: 0.875rem;
+}
+
+/* Espaçamento entre campos */
+#contacto .space-y-6 > * + * {
+    margin-top: 1.5rem;
+}
+
+/* Coluna direita - Info de contacto CENTRALIZADA */
+#contacto .grid > div:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#contacto .section-title {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #30362B;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.contact-text {
+    color: #30362B;
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Botão de contacto */
+#contacto .btn-secondary {
+    background-color: #30362B;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+#contacto .btn-secondary:hover {
+    background-color: #ABC39A;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Responsivo - mobile */
+@media (max-width: 768px) {
+    #contacto .grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    #contacto .grid > div:last-child {
+        text-align: center;
+    }
+}
+
+/* Secção Contacto */
+#contacto {
+    background-color: #E8F4E0;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+/* Grid Layout - Form à esquerda, Info à direita */
+#contacto .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Cada campo do formulário com fundo branco */
+#contacto form > div {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Labels do formulário */
+.form-label {
+    color: #30362B;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+/* Inputs do formulário */
+.form-input {
+    background-color: white;
+    border: 2px solid #ABC39A;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    font-size: 0.875rem;
+    color: #30362B;
+    transition: all 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #30362B;
+    box-shadow: 0 0 0 3px rgba(171, 195, 154, 0.1);
+}
+
+.form-input::placeholder {
+    color: #9ca3af;
+    font-size: 0.875rem;
+}
+
+/* Espaçamento entre campos */
+#contacto .space-y-6 > * + * {
+    margin-top: 1.5rem;
+}
+
+/* Coluna direita - Info de contacto CENTRALIZADA */
+#contacto .grid > div:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#contacto .section-title {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #30362B;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.contact-text {
+    color: #30362B;
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Botão de contacto */
+#contacto .btn-secondary {
+    background-color: #30362B;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+#contacto .btn-secondary:hover {
+    background-color: #ABC39A;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Responsivo - mobile */
+@media (max-width: 768px) {
+    #contacto .grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    #contacto .grid > div:last-child {
+        text-align: center;
+    }
+}
+
+
+
+
+
+
 
 /* Footer */
 .footer {

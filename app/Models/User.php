@@ -27,8 +27,27 @@ class User extends Authenticatable
     ];
 
     // Função projects para receber todos os projects do user
-    public function projects(){
+    public function projects()
+    {
         return $this->hasMany(Project::class);
+    }
+
+    public function hasPermissionInProject($projectId, string $permission): bool
+    {
+        return $this->projects()
+            ->where('projects.id', $projectId)
+            ->wherePivot('role_id', '!=', null)
+            ->whereHas('pivot.role.permissions', fn($q) => $q->where('name', $permission))
+            ->exists();
+    }
+
+    public function roleInProject($projectId): ?Role
+    {
+        return $this->projects()
+            ->where('projects.id', $projectId)
+            ->first()
+            ?->pivot
+                ?->role;
     }
 
 
@@ -63,7 +82,7 @@ class User extends Authenticatable
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
 }

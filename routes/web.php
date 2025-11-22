@@ -19,6 +19,11 @@ Route::view('livewire.projetos.projetos-dashboard', 'livewire.projetos.projetos-
     ->middleware(['auth', 'verified'])
     ->name('projetos-dashboard');
 
+// Route Dashboard Álbuns
+Route::view('livewire.albuns.albuns-dashboard', 'livewire.albuns.albuns-dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('albuns-dashboard');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');

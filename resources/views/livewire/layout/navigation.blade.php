@@ -106,7 +106,7 @@ new class extends Component {
             </a>
 
             <!-- Álbum Link -->
-            <a href="{{ route('dashboard') }}" wire:navigate
+            <a href="{{ route('albuns-dashboard') }}" wire:navigate
                 class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">

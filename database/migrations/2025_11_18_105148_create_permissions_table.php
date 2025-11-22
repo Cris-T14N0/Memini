@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Album;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('medias', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Album::class)->constrained()->onDelete('cascade');
-            $table->string('file_name');
-            $table->string('file_path');
-            $table->string('file_type');
-            $table->string('mime_type');
-            $table->unsignedBigInteger('file_size');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('media');
+        Schema::dropIfExists('permissions');
     }
 };

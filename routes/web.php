@@ -24,6 +24,11 @@ Route::view('livewire.albuns.albuns-dashboard', 'livewire.albuns.albuns-dashboar
     ->middleware(['auth', 'verified'])
     ->name('albuns-dashboard');
 
+// Route Dashboard Álbuns
+Route::view('livewire.albuns.albuns-media-dashboard', 'livewire.albuns.albuns-media-dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('media-dashboard');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');

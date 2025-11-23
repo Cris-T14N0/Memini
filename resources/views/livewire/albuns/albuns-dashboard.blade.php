@@ -86,10 +86,11 @@
 
                 <div id="progressAlbums" class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                    <div class="album-card progress-album bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition"
-                         data-name="Crescimento da Ana"
-                         data-date="2025-11-11"
-                         data-status="progress">
+                    <a href="{{ route('media-dashboard') }}"
+                       class="album-card progress-album bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition block"
+                       data-name="Crescimento da Ana"
+                       data-date="2025-11-11"
+                       data-status="progress">
 
                         <div class="text-sm text-gray-400 dark:text-gray-500 mb-4">Nov 11, 2025</div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Crescimento da Ana</h3>
@@ -101,12 +102,13 @@
                             </div>
                             <span class="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 px-4 py-1 rounded-full text-sm">5 anos</span>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="album-card progress-album bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition"
-                         data-name="Aniversário do João"
-                         data-date="2025-06-05"
-                         data-status="progress">
+                    <a href="{{ route('media-dashboard') }}"
+                       class="album-card progress-album bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition block"
+                       data-name="Aniversário do João"
+                       data-date="2025-06-05"
+                       data-status="progress">
 
                         <div class="text-sm text-gray-400 dark:text-gray-500 mb-4">Jun 05, 2025</div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Aniversário do João</h3>
@@ -119,7 +121,7 @@
                             </div>
                             <span class="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-4 py-1 rounded-full text-sm">Em 1 dias</span>
                         </div>
-                    </div>
+                    </a>
 
                 </div>
             </div>
@@ -130,10 +132,11 @@
 
                 <div id="completedAlbums" class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                    <div class="album-card completed-album bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition opacity-75"
-                         data-name="Natal 2024"
-                         data-date="2024-11-11"
-                         data-status="completed">
+                    <a href="{{ route('media-dashboard') }}"
+                       class="album-card completed-album bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition opacity-75 block"
+                       data-name="Natal 2024"
+                       data-date="2024-11-11"
+                       data-status="completed">
 
                         <div class="text-sm text-gray-400 dark:text-gray-500 mb-4">Nov 11, 2024</div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Natal 2024</h3>
@@ -146,7 +149,7 @@
                             </div>
                             <span class="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 px-4 py-1 rounded-full text-sm">Finalizado</span>
                         </div>
-                    </div>
+                    </a>
 
                 </div>
             </div>

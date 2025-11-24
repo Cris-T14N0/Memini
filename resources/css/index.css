@@ -528,6 +528,7 @@ section.py-16 .absolute.inset-0 .p-8 {
 }
 
 /* Secção Contacto */
+/* Secção Contacto */
 #contacto {
     background-color: #E8F4E0;
     padding-top: 4rem;
@@ -535,12 +536,17 @@ section.py-16 .absolute.inset-0 .p-8 {
     font-family: "Poppins", sans-serif;
 }
 
-/* Grid Layout - Form à esquerda, Info à direita */
+/* Grid Layout - Form à esquerda (mais largo), Info à direita (mais estreita) */
 #contacto .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 8rem;
     align-items: start;
+}
+
+/* Mover formulário para a esquerda */
+#contacto .grid > div:first-child {
+    margin-left: -5rem;
 }
 
 /* Cada campo do formulário com fundo branco */
@@ -549,15 +555,18 @@ section.py-16 .absolute.inset-0 .p-8 {
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    max-width: 100%;
 }
 
-/* Labels do formulário */
+/* Labels do formulário - ALINHADO À ESQUERDA */
 .form-label {
     color: #30362B;
     font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
     display: block;
+    font-family: "Poppins", sans-serif;
+    text-align: left;
 }
 
 /* Inputs do formulário */
@@ -570,6 +579,7 @@ section.py-16 .absolute.inset-0 .p-8 {
     font-size: 0.875rem;
     color: #30362B;
     transition: all 0.3s;
+    font-family: "Poppins", sans-serif;
 }
 
 .form-input:focus {
@@ -588,28 +598,30 @@ section.py-16 .absolute.inset-0 .p-8 {
     margin-top: 1.5rem;
 }
 
-/* Coluna direita - Info de contacto CENTRALIZADA */
+/* Coluna direita - Info de contacto ALINHADA À ESQUERDA */
 #contacto .grid > div:last-child {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
 }
 
 #contacto .section-title {
     font-size: 2.25rem;
     font-weight: bold;
     color: #30362B;
-    text-align: center;
+    text-align: left;
     margin-bottom: 1.5rem;
+    font-family: "Poppins", sans-serif;
 }
 
 .contact-text {
     color: #30362B;
     font-size: 1rem;
     line-height: 1.6;
-    text-align: center;
+    text-align: left;
+    font-family: "Poppins", sans-serif;
 }
 
 /* Botão de contacto */
@@ -622,6 +634,7 @@ section.py-16 .absolute.inset-0 .p-8 {
     text-decoration: none;
     display: inline-block;
     transition: all 0.3s;
+    font-family: "Poppins", sans-serif;
 }
 
 #contacto .btn-secondary:hover {
@@ -637,121 +650,17 @@ section.py-16 .absolute.inset-0 .p-8 {
         gap: 2rem;
     }
     
+    #contacto .grid > div:first-child {
+        margin-left: 0;
+    }
+    
     #contacto .grid > div:last-child {
+        align-items: center;
         text-align: center;
     }
-}
-
-/* Secção Contacto */
-#contacto {
-    background-color: #E8F4E0;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-}
-
-/* Grid Layout - Form à esquerda, Info à direita */
-#contacto .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-}
-
-/* Cada campo do formulário com fundo branco */
-#contacto form > div {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-/* Labels do formulário */
-.form-label {
-    color: #30362B;
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    display: block;
-}
-
-/* Inputs do formulário */
-.form-input {
-    background-color: white;
-    border: 2px solid #ABC39A;
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    width: 100%;
-    font-size: 0.875rem;
-    color: #30362B;
-    transition: all 0.3s;
-}
-
-.form-input:focus {
-    outline: none;
-    border-color: #30362B;
-    box-shadow: 0 0 0 3px rgba(171, 195, 154, 0.1);
-}
-
-.form-input::placeholder {
-    color: #9ca3af;
-    font-size: 0.875rem;
-}
-
-/* Espaçamento entre campos */
-#contacto .space-y-6 > * + * {
-    margin-top: 1.5rem;
-}
-
-/* Coluna direita - Info de contacto CENTRALIZADA */
-#contacto .grid > div:last-child {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-#contacto .section-title {
-    font-size: 2.25rem;
-    font-weight: bold;
-    color: #30362B;
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-.contact-text {
-    color: #30362B;
-    font-size: 1rem;
-    line-height: 1.6;
-    text-align: center;
-}
-
-/* Botão de contacto */
-#contacto .btn-secondary {
-    background-color: #30362B;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s;
-}
-
-#contacto .btn-secondary:hover {
-    background-color: #ABC39A;
-    color: white;
-    transform: scale(1.05);
-}
-
-/* Responsivo - mobile */
-@media (max-width: 768px) {
-    #contacto .grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
     
-    #contacto .grid > div:last-child {
+    #contacto .section-title,
+    .contact-text {
         text-align: center;
     }
 }
@@ -766,33 +675,92 @@ section.py-16 .absolute.inset-0 .p-8 {
 .footer {
     background-color: #ABC39A;
     color: white;
-    padding: 2rem 0;
+    padding: 3rem 0 2rem 0;
+    font-family: "Poppins", sans-serif;
+}
+
+.footer .container {
+    max-width: 1200px;
+}
+
+/* Grid do Footer com proporções ajustadas */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Coluna da Logo - mais à esquerda */
+.footer-col-logo {
+    padding-right: 2rem;
+}
+
+/* Coluna dos Links - centralizada */
+.footer-col-links {
+    padding-left: 1rem;
+}
+
+/* Coluna de Contactos - à direita */
+.footer-col-contact {
+    padding-left: 0.5rem;
+}
+
+/* Logo do Footer */
+.footer-logo {
+    height: 3rem;
+    width: auto;
+    margin-bottom: 1.5rem;
+    filter: brightness(0) invert(1);
+}
+
+/* Texto descritivo */
+.footer-text {
+    color: white;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    max-width: 400px;
+}
+
+/* Navegação do Footer */
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .footer-link {
-    color: var(--accent);
-    transition: color 0.3s;
+    color: white;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
 }
 
 .footer-link:hover {
     color: #30362B;
+    transform: translateX(5px);
 }
 
-.btn-secondary {
-    background-color: #ABC39A;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: all 0.3s;
-}
-
-.btn-secondary:hover {
-    background-color: #30362B;
-    color: #ABC39A;
-    transform: scale(1.05);
-}
-
-.NIGGER {
-    color: black;
+/* Responsivo */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-col-logo,
+    .footer-col-links,
+    .footer-col-contact {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .footer-text {
+        max-width: 100%;
+    }
+    
+    .footer-nav {
+        gap: 0.75rem;
+    }
 }

@@ -277,32 +277,31 @@
         </div>
     </section>
 
-    <!-- Contacto -->
+   <!-- Contacto -->
     <section id="contacto" class="py-16">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
                 <!-- Form -->
                 <div>
-                    <h3 class="form-label text-sm font-semibold mb-6">Insira o seu nome</h3>
-                    
                     <form class="space-y-6">
                         <div>
+                            <label class="form-label block text-sm font-semibold mb-2">Insira o seu nome:</label>
                             <input type="text" 
-                                   placeholder="Insira aqui o seu nome completo." 
+                                   placeholder="Insira aqui (de preferência) o seu nome completo." 
                                    class="form-input w-full px-4 py-3 rounded-md">
                         </div>
                         
                         <div>
-                            <label class="form-label block text-sm font-semibold mb-2 ">Insira o seu email</label>
+                            <label class="form-label block text-sm font-semibold mb-2">Insira o seu email:</label>
                             <input type="email" 
-                                   placeholder="Insira aqui o seu email" 
+                                   placeholder="Insira aqui o seu email." 
                                    class="form-input w-full px-4 py-3 rounded-md">
                         </div>
                         
                         <div>
                             <label class="form-label block text-sm font-semibold mb-2">Qual é a sua pergunta?</label>
                             <textarea rows="4" 
-                                      placeholder="Insira aqui a sua pergunta" 
+                                      placeholder="Questione." 
                                       class="form-input w-full px-4 py-3 rounded-md resize-none"></textarea>
                         </div>
                     </form>
@@ -312,10 +311,10 @@
                 <div>
                     <h2 class="section-title text-3xl md:text-4xl font-bold mb-6">Contacte-nos</h2>
                     <p class="contact-text mb-8">
-                        Quer saber o nosso acesso diariamente! Tire suas dúvidas
+                        Fale com a nossa equipa diretamente
                     </p>
-                    <a href="#contacto" class="btn-secondary">
-                        Clique aqui se não respondermos →
+                    <a href="mailto:contato@memini.com" class="btn-secondary">
+                        Ou envie um email diretamente →
                     </a>
                 </div>
             </div>
@@ -324,30 +323,41 @@
 
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div class="md:col-span-2">
-                    <div class="flex items-center space-x-2 mb-4">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                        </svg>
-                        <span class="footer-logo text-xl font-semibold">Memini</span>
-                    </div>
-                    <p class="footer-text text-sm leading-relaxed max-w-md">
-                        Ajudamos as famílias a preservarem suas histórias mais preciosas de forma segura e organizada.
-                    </p>
+<footer class="footer">
+    <div class="container mx-auto px-6">
+        <div class="footer-grid">
+            <!-- Coluna 1 - Logo e Descrição -->
+            <div class="footer-col-logo">
+                <div class="mb-4">
+                    <img src="http://localhost/assets/img/logo-dark.png" alt="Memini Logo" class="footer-logo">
                 </div>
+                <p class="footer-text">
+                    Memini é uma plataforma segura e privada para guardar, organizar e compartilhar memórias familiares. Crie projetos e álbuns, faça upload de fotos, vídeos e áudios, e compartilhe momentos especiais com quem você escolher, mantendo suas lembranças sempre protegidas e organizadas.
+                </p>
             </div>
-            <div class="footer-bottom border-t pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
-                <p>&copy; 2025 Memini. Todos os direitos reservados.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#privacidade" class="footer-link">Política de Privacidade</a>
-                    <a href="#termos" class="footer-link">Termos de Uso</a>
-                </div>
+
+            <!-- Coluna 2 - Links de Navegação -->
+            <div class="footer-col-links">
+                <nav class="footer-nav">
+                    <a href="#home" class="footer-link">Home →</a>
+                    <a href="#solucoes" class="footer-link">Soluções →</a>
+                    <a href="#sobre" class="footer-link">Sobre Nós →</a>
+                    <a href="#contacto" class="footer-link">Contactos →</a>
+                </nav>
+            </div>
+
+            <!-- Coluna 3 - Redes Sociais e Contactos -->
+            <div class="footer-col-contact">
+                <nav class="footer-nav">
+                    <a href="https://instagram.com" target="_blank" class="footer-link">Instagram →</a>
+                    <a href="https://youtube.com" target="_blank" class="footer-link">YouTube →</a>
+                    <a href="mailto:support@memini.com" class="footer-link">support@memini.com</a>
+                    <a href="tel:+351933994686" class="footer-link">+351 933994686</a>
+                </nav>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 </body>
 </html>
 

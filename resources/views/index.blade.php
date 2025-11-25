@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memini - Aplicação Virtual Familiar</title>
 
-    <!-- 1️⃣ Primeiro o Tailwind -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 2️⃣ Depois o teu CSS personalizado -->
+    <!-- CSS -->
     <!-- <link rel="stylesheet" href="{{asset('resources\css\index.css') }}"> -->
     @vite(['resources/css/index.css', 'resources/js/app.js'])
 </head>
@@ -16,33 +17,33 @@
 <body>
     <!-- Navigation -->
     <nav class="nav-bar shadow-md">
-    <div class="container mx-auto px-6 py-4">
-        <div class="flex items-center justify-between">
-            <div class="flex-shrink-0">
-                <img src="http://localhost/assets/img/logo-dark.png" alt="Memini Logo" class="object-contain">
-            </div>
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex-shrink-0">
+                    <img src="http://localhost/assets/img/logo-dark.png" alt="Memini Logo" class="object-contain">
+                </div>
 
-            <div class="hidden md:flex flex-1 justify-center space-x-8">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#sobre" class="nav-link">Sobre nós</a>
-                <a href="#solucoes" class="nav-link">Soluções</a>
-                <a href="#contacto" class="nav-link">Contactos</a>
-            </div>
+                <div class="hidden md:flex flex-1 justify-center space-x-8">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#sobre" class="nav-link">Sobre nós</a>
+                    <a href="#solucoes" class="nav-link">Soluções</a>
+                    <a href="#contacto" class="nav-link">Contactos</a>
+                </div>
 
-            <div class="flex-shrink-0">
-                <a href="{{ route('dashboard') }}" class="btn-primary">Login →</a>
+                <div class="flex-shrink-0">
+                    <a href="{{ route('dashboard') }}" class="btn-primary">Login →</a>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 
     <!-- Hero Section -->
     <section class="hero relative py-20 overflow-hidden">
-    <div class="container mx-auto px-6 text-center relative z-10">
-        <h1 class="hero-title text-5xl md:text-6xl font-bold mb-4">Memini</h1>
-        <p class="hero-subtitle text-xl">A sua aplicação de cloud familiar e pessoal.</p>
-    </div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h1 class="hero-title text-5xl md:text-6xl font-bold mb-4">Memini</h1>
+            <p class="hero-subtitle text-xl">A sua aplicação de cloud familiar e pessoal.</p>
+        </div>
     </section>
 
     <!-- Confiado por -->
@@ -60,7 +61,7 @@
                 Que soluções é que a nossa app apresenta?
             </h2>
             <p class="text-center text-secondary mb-12 max-w-3xl mx-auto">
-                 A sua app apresenta várias soluções claras para famílias que querem guardar e organizar memórias de forma segura e prática.
+                A sua app apresenta várias soluções claras para famílias que querem guardar e organizar memórias de forma segura e prática.
             </p>
 
             <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -68,7 +69,7 @@
                 <div class="card">
                     <div class="card-icon-wrapper">
                         <svg class="card-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                     </div>
                     <h3 class="card-title text-xl font-bold mb-3">Privacidade e Segurança Total</h3>
@@ -81,7 +82,7 @@
                 <div class="card">
                     <div class="card-icon-wrapper">
                         <svg class="card-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                         </svg>
                     </div>
                     <h3 class="card-title text-xl font-bold mb-3">Organização Personalizada</h3>
@@ -94,12 +95,12 @@
                 <div class="card">
                     <div class="card-icon-wrapper">
                         <svg class="card-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                     </div>
                     <h3 class="card-title text-xl font-bold mb-3">Multimédia Completa</h3>
                     <p class="card-text">
-                        Suporta fotos, vídeos e áudios, possibilitando guardar momentos de formas diversas — como a primeira palavra de uma criança ou vídeos de aniversários — tornando a experiência mais rica e interativa do que apps apenas de fotos. 
+                        Suporta fotos, vídeos e áudios, possibilitando guardar momentos de formas diversas — como a primeira palavra de uma criança ou vídeos de aniversários — tornando a experiência mais rica e interativa do que apps apenas de fotos.
                 </div>
             </div>
         </div>
@@ -117,9 +118,10 @@
                 <p class="price-text text-sm max-w-xl mx-auto leading-relaxed">
                     A nossa aplicação é 100% gratuita para todas as famílias.
 
-                    Este projeto é sustentado pelo Estado português, através de um programa que apoia iniciativas dedicadas a fortalecer os laços familiares e incentivar a natalidade em Portugal.                    <br>
+                    Este projeto é sustentado pelo Estado português, através de um programa que apoia iniciativas dedicadas a fortalecer os laços familiares e incentivar a natalidade em Portugal. <br>
                     <br>
-                    Graças a este apoio, conseguimos oferecer uma plataforma totalmente gratuita, segura e privada, para que todas as famílias possam guardar e partilhar as suas memórias sem custos.                </p>
+                    Graças a este apoio, conseguimos oferecer uma plataforma totalmente gratuita, segura e privada, para que todas as famílias possam guardar e partilhar as suas memórias sem custos.
+                </p>
             </div>
         </div>
     </section>
@@ -159,7 +161,7 @@
 
             <!-- Imagem Hero -->
             <div class="relative rounded-lg overflow-hidden mb-12 max-w-5xl mx-auto">
-                <img src="/api/placeholder/1200/600" alt="Família feliz" class="w-full h-96 object-cover">
+                <img src="http://localhost/assets/img/landing-page/familia-feliz.png" alt="Família feliz" class="w-full h-96 object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                     <div class="p-8">
                         <p class="mission-label text-sm uppercase mb-2">Nossa Missão</p>
@@ -201,8 +203,8 @@
             </div>
 
             <div class="text-center mt-12">
-                <a href="#sobre" class="btn-secondary">
-                    Sobre nós →
+                <a href="{{ route('dashboard') }}" class="btn-secondary">
+                    Vamos começar →
                 </a>
             </div>
         </div>
@@ -215,8 +217,8 @@
                 <h2 class="section-title text-3xl md:text-4xl font-bold">FAQ</h2>
                 <p class="faq-description">Esclareça as suas dúvidas para simplificar a sua compreensão da Memini.</p>
                 <div class="text-center">
-                    <a href="#faq" class="btn-secondary">
-                        Esclarecido?  →
+                    <a href="{{ route('dashboard') }}" class="btn-secondary">
+                        Esclarecido? →
                     </a>
                 </div>
             </div>
@@ -227,7 +229,7 @@
                     <summary class="faq-question font-semibold cursor-pointer flex justify-between items-center">
                         A minha informação está segura?
                         <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </summary>
                     <p class="faq-answer mt-4">
@@ -240,7 +242,7 @@
                     <summary class="faq-question font-semibold cursor-pointer flex justify-between items-center">
                         A app funciona em dispositivos móveis e desktop?
                         <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </summary>
                     <p class="faq-answer mt-4">
@@ -253,7 +255,7 @@
                     <summary class="faq-question font-semibold cursor-pointer flex justify-between items-center">
                         Posso controlar permissões?
                         <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </summary>
                     <p class="faq-answer mt-4">
@@ -266,7 +268,7 @@
                     <summary class="faq-question font-semibold cursor-pointer flex justify-between items-center">
                         O que fazer se perder acesso à conta?
                         <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </summary>
                     <p class="faq-answer mt-4">
@@ -277,7 +279,7 @@
         </div>
     </section>
 
-   <!-- Contacto -->
+    <!-- Contacto -->
     <section id="contacto" class="py-16">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
@@ -286,23 +288,23 @@
                     <form class="space-y-6">
                         <div>
                             <label class="form-label block text-sm font-semibold mb-2">Insira o seu nome:</label>
-                            <input type="text" 
-                                   placeholder="Insira aqui (de preferência) o seu nome completo." 
-                                   class="form-input w-full px-4 py-3 rounded-md">
+                            <input type="text"
+                                placeholder="Insira aqui (de preferência) o seu nome completo."
+                                class="form-input w-full px-4 py-3 rounded-md">
                         </div>
-                        
+
                         <div>
                             <label class="form-label block text-sm font-semibold mb-2">Insira o seu email:</label>
-                            <input type="email" 
-                                   placeholder="Insira aqui o seu email." 
-                                   class="form-input w-full px-4 py-3 rounded-md">
+                            <input type="email"
+                                placeholder="Insira aqui o seu email."
+                                class="form-input w-full px-4 py-3 rounded-md">
                         </div>
-                        
+
                         <div>
                             <label class="form-label block text-sm font-semibold mb-2">Qual é a sua pergunta?</label>
-                            <textarea rows="4" 
-                                      placeholder="Questione." 
-                                      class="form-input w-full px-4 py-3 rounded-md resize-none"></textarea>
+                            <textarea rows="4"
+                                placeholder="Questione."
+                                class="form-input w-full px-4 py-3 rounded-md resize-none"></textarea>
                         </div>
                     </form>
                 </div>
@@ -323,78 +325,71 @@
 
 
     <!-- Footer -->
-<footer class="footer">
-    <div class="container mx-auto px-6">
-        <div class="footer-grid">
-            <!-- Coluna 1 - Logo e Descrição -->
-            <div class="footer-col-logo">
-                <div class="mb-4">
-                    <img src="http://localhost/assets/img/logo-dark.png" alt="Memini Logo" class="footer-logo">
+    <footer class="footer">
+        <div class="container mx-auto px-6">
+            <div class="footer-grid">
+                <!-- Coluna 1 - Logo e Descrição -->
+                <div class="footer-col-logo">
+                    <div class="mb-4">
+                        <img src="http://localhost/assets/img/logo-dark.png" alt="Memini Logo" class="footer-logo">
+                    </div>
+                    <p class="footer-text">
+                        Memini é uma plataforma segura e privada para guardar, organizar e compartilhar memórias familiares. Crie projetos e álbuns, faça upload de fotos, vídeos e áudios, e compartilhe momentos especiais com quem você escolher, mantendo suas lembranças sempre protegidas e organizadas.
+                    </p>
                 </div>
-                <p class="footer-text">
-                    Memini é uma plataforma segura e privada para guardar, organizar e compartilhar memórias familiares. Crie projetos e álbuns, faça upload de fotos, vídeos e áudios, e compartilhe momentos especiais com quem você escolher, mantendo suas lembranças sempre protegidas e organizadas.
-                </p>
-            </div>
 
-            <!-- Coluna 2 - Links de Navegação -->
-            <div class="footer-col-links">
-                <nav class="footer-nav">
-                    <a href="#home" class="footer-link">Home →</a>
-                    <a href="#solucoes" class="footer-link">Soluções →</a>
-                    <a href="#sobre" class="footer-link">Sobre Nós →</a>
-                    <a href="#contacto" class="footer-link">Contactos →</a>
-                </nav>
-            </div>
+                <!-- Coluna 2 - Links de Navegação -->
+                <div class="footer-col-links">
+                    <nav class="footer-nav">
+                        <a href="#home" class="footer-link">Home →</a>
+                        <a href="#solucoes" class="footer-link">Soluções →</a>
+                        <a href="#sobre" class="footer-link">Sobre Nós →</a>
+                        <a href="#contacto" class="footer-link">Contactos →</a>
+                    </nav>
+                </div>
 
-            <!-- Coluna 3 - Redes Sociais e Contactos -->
-            <div class="footer-col-contact">
-                <nav class="footer-nav">
-                    <a href="https://instagram.com" target="_blank" class="footer-link">Instagram →</a>
-                    <a href="https://youtube.com" target="_blank" class="footer-link">YouTube →</a>
-                    <a href="mailto:support@memini.com" class="footer-link">support@memini.com</a>
-                    <a href="tel:+351933994686" class="footer-link">+351 933994686</a>
-                </nav>
+                <!-- Coluna 3 - Redes Sociais e Contactos -->
+                <div class="footer-col-contact">
+                    <nav class="footer-nav">
+                        <a href="https://instagram.com" target="_blank" class="footer-link">Instagram →</a>
+                        <a href="https://youtube.com" target="_blank" class="footer-link">YouTube →</a>
+                        <a href="mailto:support@memini.com" class="footer-link">support@memini.com</a>
+                        <a href="tel:+351933994686" class="footer-link">+351 914 536 034</a>
+                    </nav>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
-<script>
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    <!-- Java Script -->
+    <script>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll(
+                '#solucoes .card, .faq-item, .value-card, .price-box, .about-text, #contacto form > div'
+            );
+
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(el);
+            });
         });
-    }, observerOptions);
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const animatedElements = document.querySelectorAll(
-            '#solucoes .card, .faq-item, .value-card, .price-box, .about-text, #contacto form > div'
-        );
-        
-        animatedElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-            observer.observe(el);
-        });
-    });
-</script>
-
+    </script>
 </body>
+
 </html>
-
-
-
-
-
-
-    
-    

@@ -106,7 +106,6 @@ body {
     position: relative;
     overflow: hidden;
     display: inline-block;
-    z-index: 1;
 }
 
 .btn-primary::before {
@@ -120,7 +119,6 @@ body {
     background: rgba(255, 255, 255, 0.2);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
-    z-index: -1;
 }
 
 .btn-primary:hover::before {
@@ -164,6 +162,7 @@ body {
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 0;
     animation: gradientShift 4s ease infinite, slideUp 0.8s ease-out;
 }
@@ -216,6 +215,7 @@ body {
     background: linear-gradient(90deg, #ABC39A 30%, #30362B 70%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 0.5rem;
     transition: transform 0.3s ease;
 }
@@ -250,6 +250,7 @@ body {
     background: linear-gradient(90deg, #4B5549 30%, #30362B 70%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 1rem;
     animation: fadeIn 0.8s ease-in;
 }
@@ -270,21 +271,6 @@ body {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
 }
-
-@keyframes cardSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-#solucoes .card:nth-child(1) { animation-delay: 0.1s; }
-#solucoes .card:nth-child(2) { animation-delay: 0.2s; }
-#solucoes .card:nth-child(3) { animation-delay: 0.3s; }
 
 #solucoes .card:hover {
     transform: translateY(-8px) scale(1.02);
@@ -346,6 +332,7 @@ section.py-16 .section-title {
     background: linear-gradient(90deg, #4B5549 30%, #a6b798 70%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 0.5rem;
     animation: fadeIn 0.8s ease-in;
 }
@@ -416,6 +403,7 @@ section.py-16 .text-secondary {
     background: linear-gradient(90deg, #ABC39A, #30362B);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 0.5rem;
     animation: fadeIn 0.8s ease-in;
 }
@@ -508,9 +496,6 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
     box-shadow: 0 8px 30px rgba(0,0,0,0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-.value-card:nth-child(1) { animation-delay: 0.2s; }
-.value-card:nth-child(2) { animation-delay: 0.4s; }
 
 .value-card:hover {
     transform: translateY(-8px) scale(1.02);
@@ -634,11 +619,6 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.faq-item:nth-child(1) { animation-delay: 0.1s; }
-.faq-item:nth-child(2) { animation-delay: 0.2s; }
-.faq-item:nth-child(3) { animation-delay: 0.3s; }
-.faq-item:nth-child(4) { animation-delay: 0.4s; }
-
 .faq-item:hover {
     transform: translateX(5px);
     box-shadow: 0 8px 30px rgba(0,0,0,0.12);
@@ -710,7 +690,6 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
     background-color: #E8F4E0;
     padding-top: 4rem;
     padding-bottom: 4rem;
-    font-family: "Inter", "Poppins", sans-serif;
 }
 
 #contacto .grid {
@@ -771,7 +750,6 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
     font-weight: 600;
     margin-bottom: 0.75rem;
     display: block;
-    font-family: "Inter", "Poppins", sans-serif;
     text-align: left;
 }
 
@@ -784,7 +762,6 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
     font-size: 0.875rem;
     color: #30362B;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-family: "Inter", "Poppins", sans-serif;
 }
 
 .form-input:focus {
@@ -818,7 +795,6 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
     color: #30362B;
     text-align: left;
     margin-bottom: 1.5rem;
-    font-family: "Inter", "Poppins", sans-serif;
 }
 
 .contact-text {
@@ -826,27 +802,6 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
     font-size: 1rem;
     line-height: 1.7;
     text-align: left;
-    font-family: "Inter", "Poppins", sans-serif;
-}
-
-#contacto .btn-secondary {
-    background-color: #30362B;
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    font-family: "Inter", "Poppins", sans-serif;
-    box-shadow: 0 4px 15px rgba(48, 54, 43, 0.3);
-}
-
-#contacto .btn-secondary:hover {
-    background-color: #ABC39A;
-    color: white;
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(171, 195, 154, 0.4);
 }
 
 @media (max-width: 768px) {
@@ -874,8 +829,7 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
 .footer {
     background: linear-gradient(135deg, #ABC39A, #9fb88e);
     color: white;
-    padding: 3rem 0 2rem 0;
-    font-family: "Inter", "Poppins", sans-serif;
+    padding: 8rem 0 5rem 0;
     box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
 }
 
@@ -885,8 +839,8 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
 
 .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 6rem;
     align-items: start;
 }
 
@@ -895,8 +849,8 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
 }
 
 .footer-logo {
-    height: 2.5rem;
-    margin-bottom: 1rem;
+    height: 3.5rem;
+    margin-bottom: 2rem;
     filter: brightness(0) invert(1);
     transition: transform 0.3s ease;
 }
@@ -905,66 +859,45 @@ section.py-16 .relative:hover .absolute.inset-0 .p-8 {
     transform: scale(1.05);
 }
 
-.footer-description {
+.footer-text {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 0.8125rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 2;
     margin-bottom: 0;
 }
 
-.footer-title {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: white;
-    letter-spacing: 0.02em;
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-links li {
-    margin-bottom: 0.5rem;
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .footer-link {
     color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
-    font-size: 0.8125rem;
+    font-size: 1.0625rem;
     transition: all 0.3s ease;
     display: inline-block;
+    font-weight: 500;
 }
 
 .footer-link:hover {
     color: #30362B;
-    transform: translateX(3px);
-}
-
-.footer-divider {
-    border: none;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    margin: 2rem 0 1.5rem 0;
-}
-
-.footer-bottom {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.75rem;
-    padding-top: 1rem;
+    transform: translateX(5px);
 }
 
 @media (max-width: 768px) {
+    .footer {
+        padding: 4rem 0 3rem 0;
+    }
+    
     .footer-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
-        text-align: center;
+        gap: 3rem;
     }
 
     .footer-col-logo {
         padding-right: 0;
+        text-align: center;
     }
 }

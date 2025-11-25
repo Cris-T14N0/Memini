@@ -23,13 +23,14 @@
 
         <!-- Page Content -->
         <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Add padding top on mobile to account for fixed header -->
+            <div class="sm:hidden h-[72px]"></div>
+
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow flex-shrink-0">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
             @endif
 
             <!-- Main Content -->

@@ -21,7 +21,7 @@ new class extends Component {
 
     <!-- Mobile Hamburger -->
     <div
-        class="sm:hidden flex items-center p-4 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        class="sm:hidden fixed top-0 left-0 right-0 z-30 flex items-center p-4 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <button @click="open = true"
             class="p-2 rounded-md text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -29,15 +29,18 @@ new class extends Component {
             </svg>
         </button>
         <div class="flex-1 flex justify-center">
-            <a href="{{ route('dashboard') }}" wire:navigate>
-                <x-application-logo class="h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+            <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center">
+                <!-- Light logo -->
+                <img src="{{ asset('assets/img/logo-light.png') }}" alt="Logo Light" class="h-24 w-auto block dark:hidden">
+                <!-- Dark logo -->
+                <img src="{{ asset('assets/img/logo-dark.png') }}" alt="Logo Dark" class="h-24 w-auto hidden dark:block">
             </a>
         </div>
     </div>
 
     <!-- Sidebar (desktop + mobile slide-in) -->
     <nav :class="{'translate-x-0': open, '-translate-x-full': !open}"
-        class="fixed inset-y-0 left-0 w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform sm:translate-x-0 sm:static sm:inset-auto transition-transform duration-300 ease-in-out z-50 flex flex-col min-h-screen">
+        class="fixed inset-y-0 left-0 w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform sm:translate-x-0 sm:static sm:inset-auto transition-transform duration-300 ease-in-out z-50 flex flex-col h-screen">
 
         <!-- Close button (mobile only) -->
         <div class="sm:hidden flex items-center justify-end p-4">
@@ -49,8 +52,8 @@ new class extends Component {
             </button>
         </div>
 
-        <!-- Logo -->
-        <div class="flex items-center justify-center px-6 pt-3 ">
+        <!-- Logo (hidden on mobile since it's in the top bar) -->
+        <div class="hidden sm:flex items-center justify-center px-6 pt-3">
             <a href="{{ route('dashboard') }}" wire:navigate
                 class="flex items-center gap-2 px-4 py-2 rounded-full transition-colors">
                 <!-- Light logo -->
@@ -61,7 +64,7 @@ new class extends Component {
         </div>
 
         <!-- Navigation Links -->
-        <div class="flex-1 mt-8 space-y-2 px-4">
+        <div class="flex-1 mt-8 space-y-2 px-4 overflow-y-auto">
 
             <!-- Dashboard Link -->
             <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
@@ -146,7 +149,7 @@ new class extends Component {
 
             <!-- Dropdown menu -->
             <div x-show="dropdownOpen" @click.away="dropdownOpen = false" x-transition
-                class="absolute bottom-full mb-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700">
+                class="absolute bottom-full mb-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg py-1 z-[60] border border-gray-200 dark:border-gray-700">
 
                 <a href="{{ route('profile') }}" wire:navigate
                     class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -160,8 +163,5 @@ new class extends Component {
             </div>
         </div>
     </nav>
-
-    <!-- Overlay for mobile -->
-    <div x-show="open" @click="open = false" class="fixed inset-0 bg-black bg-opacity-25 sm:hidden z-40"></div>
 
 </div>

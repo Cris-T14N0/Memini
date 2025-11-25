@@ -17,7 +17,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="flex h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="flex h-screen bg-lime-50 dark:bg-gray-900">
         <!-- Sidebar -->
         <livewire:layout.navigation />
 

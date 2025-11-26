@@ -61,7 +61,7 @@ sudo apt update && sudo apt upgrade -y
 
 ---
 
-## 4. Clonar e Executar o Projeto Laravel
+## 4. Clonar e Executar o Projeto Laravel (Dentro do Ubuntu)
 
 ### Instalar e Configurar Git
 
@@ -71,7 +71,7 @@ git config --global user.name "Seu Nome"
 git config --global user.email "seuemail@exemplo.com"
 ```
 
-### Clonar o Repositório (Dentro do Ubuntu)
+### Clonar o Repositório
 
 ```bash
 mkdir apps

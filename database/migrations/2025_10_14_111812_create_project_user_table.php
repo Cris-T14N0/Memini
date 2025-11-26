@@ -1,5 +1,7 @@
 <?php
-
+use App\Models\Project;
+use App\Models\User;
+use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +15,19 @@ return new class extends Migration
     {
         Schema::create('project_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('role_id')->nullable()->constrained('roles')->nullOnDelete();
+            $table->foreignIdFor(Project::class)
+                ->constrained()
+                ->onDelete('cascade');
+
+            $table->foreignIdFor(User::class)
+                ->constrained()
+                ->onDelete('cascade');
+
+            $table->foreignIdFor(Role::class)
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
+
             $table->timestamps();
         });
     }

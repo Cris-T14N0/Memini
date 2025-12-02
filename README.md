@@ -147,7 +147,7 @@ A private, secure, and family-friendly platform to store, organize, and share fa
 
 This platform allows parents and families to:
 
-* Create **Projects** representing children, events, or themes.
+* Create **Projects** representing people, events, or themes.
 * Add multiple **Albums** per project.
 * Upload **media** (images, videos, audio) to albums.
 * Share **projects or albums** via secure links with optional expiration and ZIP download.
@@ -221,83 +221,6 @@ This platform allows parents and families to:
 
 ---
 
-## 🐳 Docker Setup
-
-### Prerequisites
-
-* Docker
-* Docker Compose
-
-### Steps
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/Cris-T14N0/Memini
-cd Memini
-```
-
-2. Copy the environment file:
-
-```bash
-cp .env.example .env
-```
-
-3. Update `.env` as needed (DB_HOST, DB_PORT, MAIL settings, etc.)
-
-4. Build and start containers:
-
-```bash
-docker-compose up -d --build
-```
-
-5. Run migrations and seeders inside the app container:
-
-```bash
-docker-compose exec app php artisan migrate --seed
-```
-
-6. Access the application at:
-
-```
-http://localhost:8000
-```
-
-### Useful Commands
-
-* Enter app container:
-
-```bash
-docker-compose exec app bash
-```
-
-* Artisan commands:
-
-```bash
-php artisan route:list
-php artisan storage:link
-php artisan tinker
-```
-
-* Stop containers:
-
-```bash
-docker-compose down
-```
-
----
-
-## 🗂️ Database Structure
-
-* **users** → Registered families
-* **projects** → Top-level container for albums
-* **albums** → Nested inside projects
-* **media** → Photos, videos, audios inside albums
-* **shared_links** → Secure links for sharing projects or albums
-* **project_user / album_user** → Pivots for roles and permissions
-
----
-
 ## 🧩 Usage
 
 * Users can create projects and albums via the dashboard.
@@ -307,23 +230,6 @@ docker-compose down
 
 ---
 
-## 🛠️ Contributing
-
-1. Fork the repository
-2. Create a new branch: `git checkout -b feature/your-feature`
-3. Commit changes: `git commit -m 'Add some feature'`
-4. Push: `git push origin feature/your-feature`
-5. Open a Pull Request
-
----
-
 ## 📜 License
 
 This project is licensed under the MIT License.
-
----
-
-## ❤️ Notes
-
-This platform is designed for **families to safely store and share their most precious memories**.
-Focus on usability, privacy, and long-term preservation is a core priority.

@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Project extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = ['user_id', 'name', 'description'];
 
-    protected $with = ['users']; // always load members (tiny overhead, huge convenience)
+    protected $with = ['users'];
 
     // Owner
     public function owner(): BelongsTo
@@ -26,19 +26,14 @@ class Project extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'project_user')
-                    ->withPivot('role_id')
-                    ->withTimestamps();
+            ->withPivot('role_id')
+            ->withTimestamps();
     }
 
-    // Albums & medias (you already have these tables)
+    // Albums & medias
     public function albums(): HasMany
     {
         return $this->hasMany(Album::class);
-    }
-
-    public function medias(): HasMany
-    {
-        return $this->hasMany(Media::class);
     }
 
     // Invitations
@@ -51,16 +46,9 @@ class Project extends Model
     public function roleFor(User $user): ?Role
     {
         return $this->users()
-                    ->where('user_id', $user->id)
-                    ->first()
-                    ?->pivot
-                    ?->role;
-    }
-
-    // Helper: does current user have permission in this project?
-    public function userCan(User $user, string $permission): bool
-    {
-        $role = $this->roleFor($user);
-        return $role?->permissions()->where('name', $permission)->exists() ?? false;
+            ->where('user_id', $user->id)
+            ->first()
+            ?->pivot
+                ?->role;
     }
 }

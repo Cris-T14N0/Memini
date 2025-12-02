@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Project>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Album>
  */
-class ProjectFactory extends Factory
+class AlbumFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,8 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(), // creates owner if none provided
-            'name' => $this->faker->sentence(3),
+            'project_id' => Project::factory(),
+            'title' => $this->faker->sentence(3),
             'description' => $this->faker->paragraph(),
         ];
     }

@@ -7,12 +7,28 @@ on:
 
 jobs:
   ftp-deploy:
-    name: Upload Website
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, bcmath, mysql
+
+      - name: Install Composer Dependencies (Production)
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Generate optimized autoload
+        run: composer dump-autoload -o
+
+      - name: Remove dev files from upload
+        run: |
+          rm -rf tests
+          rm -rf node_modules
+          rm -rf .github
 
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

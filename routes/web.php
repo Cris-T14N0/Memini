@@ -37,4 +37,12 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+Route::get('/setup/{key}', function($key){
+    if ($key !== env('SETUP_KEY')) abort(403); // Security check
+    \Artisan::call('migrate', ['--force' => true]); // Run migrations
+    \Artisan::call('db:seed', ['--force' => true]);   // Run seeders
+    return 'Setup complete!';
+});
+
+
 require __DIR__.'/auth.php';

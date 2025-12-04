@@ -10,29 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
+      # 1️⃣ Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Set up PHP
+      # 2️⃣ Set up PHP
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           extensions: mbstring, bcmath, mysql
 
-      # 3. Install production Composer dependencies
+      # 3️⃣ Install production Composer dependencies
       - name: Install Composer Dependencies
         run: composer install --no-dev --optimize-autoloader
 
-      # 4. Remove dev-only files
+      # 4️⃣ Remove dev-only files
       - name: Remove dev files
         run: |
           rm -rf tests
           rm -rf node_modules
           rm -rf .github
 
-      # 5. Deploy Laravel project (everything except public/)
+      # 5️⃣ Deploy Laravel project (everything except public/)
       - name: Deploy Laravel Project
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -45,7 +45,7 @@ jobs:
           exclude:
             - public
 
-      # 6. Deploy public folder contents to public_html
+      # 6️⃣ Deploy public folder contents to public_html
       - name: Deploy Public Folder
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -55,10 +55,3 @@ jobs:
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./public/
           server-dir: /julcri/public_html/
-
-      # 7. Clear Laravel caches via Artisan (via FTP action)
-      - name: Clear Laravel caches
-        run: |
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:clear

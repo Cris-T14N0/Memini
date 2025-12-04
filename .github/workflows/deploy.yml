@@ -1,4 +1,4 @@
-name: Deploy to Hostinger via FTP
+name: Deploy Laravel to Hostinger
 
 on:
   push:
@@ -8,29 +8,32 @@ on:
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
+
     steps:
+      # 1. Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2. Set up PHP
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           extensions: mbstring, bcmath, mysql
 
-      - name: Install Composer Dependencies (Production)
+      # 3. Install production Composer dependencies
+      - name: Install Composer Dependencies
         run: composer install --no-dev --optimize-autoloader
 
-      - name: Generate optimized autoload
-        run: composer dump-autoload -o
-
-      - name: Remove dev files from upload
+      # 4. Remove dev-only files
+      - name: Remove dev files
         run: |
           rm -rf tests
           rm -rf node_modules
           rm -rf .github
 
-      - name: Deploy to Hostinger
+      # 5. Deploy Laravel project (everything except public/)
+      - name: Deploy Laravel Project
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -38,4 +41,24 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./
-          server-dir: /public_html/
+          server-dir: /julcri/laravel/
+          exclude:
+            - public
+
+      # 6. Deploy public folder contents to public_html
+      - name: Deploy Public Folder
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          local-dir: ./public/
+          server-dir: /julcri/public_html/
+
+      # 7. Clear Laravel caches via Artisan (via FTP action)
+      - name: Clear Laravel caches
+        run: |
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:clear

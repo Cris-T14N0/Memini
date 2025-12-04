@@ -41,9 +41,12 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./
-          server-dir: /julcri/laravel/
-          exclude:
-            - public
+          server-dir: ./laravel/
+          exclude: |
+            **/public/**
+            **/node_modules/**
+            **/.git/**
+            **/.github/**
 
       # 6️⃣ Deploy public folder contents to public_html
       - name: Deploy Public Folder
@@ -54,4 +57,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./public/
-          server-dir: /julcri/public_html/
+          server-dir: ./public_html/

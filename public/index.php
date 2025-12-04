@@ -5,12 +5,12 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// Maintenance mode check
+// Maintenance check
 if (file_exists($maintenance = __DIR__ . '/../laravel/storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
-// Composer autoloader
+// Composer autoload
 require __DIR__ . '/../laravel/vendor/autoload.php';
 
 // Bootstrap Laravel
@@ -23,5 +23,4 @@ $response = $app->handle(
 );
 
 $response->send();
-
 $app->terminate($request, $response);

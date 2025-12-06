@@ -1,28 +1,35 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Project;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
+        // 1️⃣ Random users
         User::factory(10)->create();
-
-        $user = User::factory()->create([
+        
+        // 2️⃣ Test user
+        $testUser = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-
-        // Atribuir 5 projetos ao utilizador de teste
-        Project::factory()->count(10)->create();
-
+        
+        // 3️⃣ Create 10 projects for the test user, each with 3 albums
+        Project::factory()
+            ->count(10)
+            ->for($testUser, 'owner') // Correct syntax
+            ->withAlbums(3)
+            ->create();
+        
+        // 4️⃣ Add more projects with random albums
+        Project::factory()
+            ->count(5)
+            ->for($testUser, 'owner')
+            ->withAlbums(rand(4, 6))
+            ->create();
     }
 }

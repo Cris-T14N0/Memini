@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="pt-3 pb-12">
+    <div class="pb-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <!-- Welcome Card -->
@@ -16,11 +16,11 @@
                             Olá {{ Auth::user()->name }}
                         </h1>
                         <p class="text-gray-600 dark:text-gray-400">
-                            Revive momentos especiais e gera os teus álbuns familiares
+                            Nesta página vais poder fazer a gestão dos teus projetos!
                         </p>
-                        <a href="{{ route('pastas-dashboard') }}" 
-                           class="mt-4 inline-block bg-gray-900 dark:bg-gray-700 text-white px-6 py-2.5 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-600 transition">
-                            Ver Pastas
+                        <a href="#" 
+                        class="mt-4 inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-200">
+                            Criar Projeto
                         </a>
                     </div>
                 </div>
@@ -86,90 +86,32 @@
                 </div>
             </div>
 
-            <!-- PROGRESS PROJECTS -->
             @if($showProgress)
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Projetos Em Progresso</h2>
 
                 @if($projects['progress']->count())
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                         @foreach($projects['progress'] as $project)
-                            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition">
-                                <div class="text-sm text-gray-400 dark:text-gray-500 mb-4">
-                                    {{ $project->created_at->format('M d, Y') }}
-                                </div>
-
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                                    {{ $project->name }}
-                                </h3>
-
-                                <p class="text-gray-600 dark:text-gray-400 mb-6">
-                                    {{ $project->description ?? 'Sem descrição' }}
-                                </p>
-
-                                <div class="flex items-center justify-between">
-                                    <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-bold">
-                                        {{ substr($project->name, 0, 1) }}
-                                    </div>
-
-                                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-4 py-1 rounded-full text-sm">
-                                        Em Progresso
-                                    </span>
-                                </div>
-                            </div>
+                            {{-- *** CHANGE HERE: Pass the statusType variable *** --}}
+                            <x-project-card :project="$project" statusType="progress" />
                         @endforeach
                     </div>
                 @else
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 text-center mb-8">
-                        <p class="text-gray-500 dark:text-gray-400">Nenhum projeto em progresso encontrado.</p>
-                    </div>
-                @endif
+                    @endif
             @endif
-
-            <!-- COMPLETED PROJECTS -->
             @if($showCompleted)
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Projetos Concluídos</h2>
 
                 @if($projects['completed']->count())
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         @foreach($projects['completed'] as $project)
-                            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 opacity-75 hover:opacity-100 transition">
-                                <div class="text-sm text-gray-400 dark:text-gray-500 mb-4">
-                                    {{ $project->created_at->format('M d, Y') }}
-                                </div>
-
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                                    {{ $project->name }}
-                                </h3>
-
-                                <p class="text-gray-600 dark:text-gray-400 mb-6">
-                                    {{ $project->description ?? 'Sem descrição' }}
-                                </p>
-
-                                <div class="flex items-center justify-between">
-                                    <div class="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center text-xs font-bold">
-                                        {{ substr($project->name, 0, 1) }}
-                                    </div>
-
-                                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 px-4 py-1 rounded-full text-sm">
-                                        Concluído
-                                    </span>
-                                </div>
-                            </div>
+                            {{-- *** CHANGE HERE: Pass the statusType variable *** --}}
+                            <x-project-card :project="$project" statusType="completed" />
                         @endforeach
                     </div>
                 @else
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 text-center">
-                        <p class="text-gray-500 dark:text-gray-400">Nenhum projeto concluído encontrado.</p>
-                    </div>
                 @endif
             @endif
-
-            @if(!$showProgress && !$showCompleted)
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 text-center">
-                    <p class="text-gray-500 dark:text-gray-400">Selecione pelo menos um filtro para ver os projetos.</p>
-                </div>
-            @endif
-
         </div>
     </div>
 </div>

@@ -15,7 +15,7 @@ Route::view('livewire.pastas.pastas-dashboard', 'livewire.pastas.pastas-dashboar
     ->name('pastas-dashboard');
 
 // Route Dashboard Projetos
-Route::view('livewire.projetos.projetos-dashboard', 'livewire.projetos.projetos-dashboard')
+Route::view('projetos.mostrar-projetos-dashboard', 'projetos.mostrar-projetos-dashboard')
     ->middleware(['auth', 'verified'])
     ->name('projetos-dashboard');
 

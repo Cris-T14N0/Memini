@@ -24,4 +24,3 @@ class AlbumFactory extends Factory
         ];
     }
 }
-// minor changes

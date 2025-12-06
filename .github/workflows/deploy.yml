@@ -1,4 +1,4 @@
-name: Deploy to Hostinger via FTP
+name: Deploy Laravel to Hostinger
 
 on:
   push:
@@ -7,14 +7,33 @@ on:
 
 jobs:
   ftp-deploy:
-    name: Upload Website
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to Hostinger
+      # 2️⃣ Set up PHP
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, bcmath, mysql
+
+      # 3️⃣ Install production Composer dependencies
+      - name: Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      # 4️⃣ Remove dev-only files
+      - name: Remove dev files
+        run: |
+          rm -rf tests
+          rm -rf node_modules
+          rm -rf .github
+
+      # 5️⃣ Deploy Laravel project (everything except public/)
+      - name: Deploy Laravel Project
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -22,4 +41,20 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./
-          server-dir: /public_html/
+          server-dir: ./laravel/
+          exclude: |
+            **/public/**
+            **/node_modules/**
+            **/.git/**
+            **/.github/**
+
+      # 6️⃣ Deploy public folder contents to public_html
+      - name: Deploy Public Folder
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          local-dir: ./public/
+          server-dir: ./public_html/

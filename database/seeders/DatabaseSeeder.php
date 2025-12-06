@@ -22,8 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Atribuir 5 projetos ao utilizador de teste
-        Project::factory()->count(5)->create([
-        'user_id' => $user->id,
-    ]);
+        Project::factory()->count(10)->create();
+
     }
 }

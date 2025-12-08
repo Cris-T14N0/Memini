@@ -95,8 +95,8 @@ new class extends Component {
             </a>
 
             <!-- Projetos Link -->
-            <a href="{{ route('projetos-dashboard') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
-                @if(request()->routeIs('projetos-dashboard'))
+            <a href="{{ route('projects-dashboard') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                @if(request()->routeIs('projects-dashboard'))
                     bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm
                 @else
                     text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50
@@ -109,6 +109,7 @@ new class extends Component {
             </a>
 
             <!-- Álbum Link -->
+            {{--
             <a href="{{ route('albuns-dashboard') }}" wire:navigate
                 class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -119,6 +120,7 @@ new class extends Component {
                 </svg>
                 <span class="font-medium">Álbuns</span>
             </a>
+            --}}
         </div>
 
         <!-- User Dropdown -->

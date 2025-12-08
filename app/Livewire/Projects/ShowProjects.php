@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Livewire\Projetos;
+namespace App\Livewire\Projects;
 
 use App\Models\Project;
 use Livewire\Component;
-use Livewire\Attributes\On;
-use Illuminate\Support\Facades\Storage;
+use Storage;
 
-class ProjetosDashboard extends Component
+class ShowProjects extends Component
 {
     public string $search = '';
     public string $sortBy = 'date-desc';
@@ -102,7 +101,7 @@ class ProjetosDashboard extends Component
 
     public function render()
     {
-        return view('livewire.projetos.projetos-dashboard', [
+        return view('livewire.projects.show-projects',[
             'projects' => $this->projects,
         ]);
     }

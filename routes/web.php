@@ -10,14 +10,14 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 // Route Dashboard Pastas
-Route::view('livewire.pastas.pastas-dashboard', 'livewire.pastas.pastas-dashboard')
+Route::view('folders.folders-dashboard', 'folders.folders-dashboard')
     ->middleware(['auth', 'verified'])
     ->name('pastas-dashboard');
 
 // Route Dashboard Projetos
-Route::view('projetos.mostrar-projetos-dashboard', 'projetos.mostrar-projetos-dashboard')
+Route::view('projects.projects-dashboard', 'projects.projects-dashboard')
     ->middleware(['auth', 'verified'])
-    ->name('projetos-dashboard');
+    ->name('projects-dashboard');
 
 // Route Dashboard Álbuns
 Route::view('livewire.albuns.albuns-dashboard', 'livewire.albuns.albuns-dashboard')

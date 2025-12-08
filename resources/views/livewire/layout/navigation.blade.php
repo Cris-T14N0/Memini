@@ -130,8 +130,15 @@ new class extends Component {
 
                 <div class="flex items-center gap-2">
                     <!-- User avatar -->
-                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}"
-                        alt="{{ Auth::user()->name }}" class="w-8 h-8 rounded-full object-cover">
+                    @if(Auth::user()->profile_photo)
+                        <img src="{{ Storage::url(Auth::user()->profile_photo) }}"
+                            alt="{{ Auth::user()->name }}" 
+                            class="w-8 h-8 rounded-full object-cover">
+                    @else
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random"
+                            alt="{{ Auth::user()->name }}" 
+                            class="w-8 h-8 rounded-full object-cover">
+                    @endif
 
                     <!-- Username -->
                     <div>{{ Auth::user()->name }}</div>

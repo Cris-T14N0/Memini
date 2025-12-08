@@ -12,7 +12,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'name', 'description', 'completed'];
+    protected $fillable = ['user_id', 'name', 'description', 'completed', 'cover_image_path'];
 
     // Owner
     public function owner(): BelongsTo

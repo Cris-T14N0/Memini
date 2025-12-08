@@ -19,10 +19,10 @@
                             Nesta página vais poder fazer a gestão dos teus projetos!
                         </p>
 
-                        <a wire:click="$dispatch('openModal', { component: 'projects.create-projects-modal' })"
+                        <button wire:click="$dispatch('openModal', { component: 'projects.create-projects-modal' })"
                         class="mt-4 inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-200">
                             Criar Projeto
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,6 @@
                 @if($projects['completed']->count())
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         @foreach($projects['completed'] as $project)
-                            {{-- *** CHANGE HERE: Pass the statusType variable *** --}}
                             <x-project-card :project="$project" statusType="completed" />
                         @endforeach
                     </div>

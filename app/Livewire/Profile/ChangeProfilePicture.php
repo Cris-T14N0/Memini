@@ -27,17 +27,21 @@ class ChangeProfilePicture extends Component
         ]);
 
         $user = Auth::user();
+        $userId = $user->id;
 
         // Delete old photo if exists
         if ($user->profile_photo) {
             Storage::disk('public')->delete($user->profile_photo);
         }
 
-        // Hash o nome da imagem
-        $nomeimagem = $this->photo->hashName();
+        // Get the file extension
+        $extension = $this->photo->getClientOriginalExtension();
+        
+        // Create filename: {user_id}_pfp.{extension}
+        $filename = "{$userId}_pfp.{$extension}";
 
-        // Guarda a imagem na pasta com o seu nome hasheado
-        $path = $this->photo->storeAs("user_{$user->id}", $nomeimagem, 'public');
+        // Store in storage/app/public/{user_id}/
+        $path = $this->photo->storeAs("{$userId}", $filename, 'public');
 
         // Save path to database
         $user->update(['profile_photo' => $path]);

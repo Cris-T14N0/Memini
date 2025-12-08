@@ -4,6 +4,8 @@ namespace App\Livewire\Projetos;
 
 use App\Models\Project;
 use Livewire\Component;
+use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Storage;
 
 class ProjetosDashboard extends Component
 {
@@ -11,6 +13,50 @@ class ProjetosDashboard extends Component
     public string $sortBy = 'date-desc';
     public bool $showProgress = true;
     public bool $showCompleted = true;
+
+    // --- Listen for project created event ---
+    #[On('projectChanged')]
+    public function refreshProjects()
+    {
+        // Livewire will automatically re-render the component
+        // and fetch fresh data from getProjectsProperty()
+    }
+
+    // --- Edit Project ---
+    public function editProject($projectId)
+    {
+        // Open edit modal (you'll need to create this)
+        $this->dispatch('openModal', component: 'projects.edit-projects-modal', arguments: ['projectId' => $projectId]);
+    }
+
+    // --- Share Project ---
+    public function shareProject($projectId)
+    {
+        // Open share modal (you'll need to create this)
+        $this->dispatch('openModal', component: 'projects.share-projects-modal', arguments: ['projectId' => $projectId]);
+    }
+
+    // --- Delete Project ---
+    public function deleteProject($projectId)
+    {
+        $project = Project::findOrFail($projectId);
+
+        // Check if user owns the project
+        if ($project->user_id !== auth()->id()) {
+            session()->flash('error', 'Não tens permissão para eliminar este projeto.');
+            return;
+        }
+
+        // Delete cover image from storage
+        if ($project->cover_image_path && Storage::disk('public')->exists($project->cover_image_path)) {
+            Storage::disk('public')->delete($project->cover_image_path);
+        }
+
+        // Delete project
+        $project->delete();
+
+        session()->flash('success', 'Projeto eliminado com sucesso!');
+    }
 
     // --- Toggle filters ---
     public function toggleFilterProgress()

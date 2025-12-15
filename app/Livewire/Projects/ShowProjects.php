@@ -4,7 +4,8 @@ namespace App\Livewire\Projects;
 
 use App\Models\Project;
 use Livewire\Component;
-use Storage;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Computed;
 
 class ShowProjects extends Component
 {
@@ -17,44 +18,23 @@ class ShowProjects extends Component
     #[On('projectChanged')]
     public function refreshProjects()
     {
-        // Livewire will automatically re-render the component
-        // and fetch fresh data from getProjectsProperty()
+        // Clear the cached computed property
+        unset($this->projects);
+        
+        // Force a re-render
+        $this->render();
     }
 
     // --- Edit Project ---
     public function editProject($projectId)
     {
-        // Open edit modal (you'll need to create this)
         $this->dispatch('openModal', component: 'projects.edit-projects-modal', arguments: ['projectId' => $projectId]);
     }
 
     // --- Share Project ---
     public function shareProject($projectId)
     {
-        // Open share modal (you'll need to create this)
         $this->dispatch('openModal', component: 'projects.share-projects-modal', arguments: ['projectId' => $projectId]);
-    }
-
-    // --- Delete Project ---
-    public function deleteProject($projectId)
-    {
-        $project = Project::findOrFail($projectId);
-
-        // Check if user owns the project
-        if ($project->user_id !== auth()->id()) {
-            session()->flash('error', 'Não tens permissão para eliminar este projeto.');
-            return;
-        }
-
-        // Delete cover image from storage
-        if ($project->cover_image_path && Storage::disk('public')->exists($project->cover_image_path)) {
-            Storage::disk('public')->delete($project->cover_image_path);
-        }
-
-        // Delete project
-        $project->delete();
-
-        session()->flash('success', 'Projeto eliminado com sucesso!');
     }
 
     // --- Toggle filters ---
@@ -69,7 +49,8 @@ class ShowProjects extends Component
     }
 
     // --- Computed Projects ---
-    public function getProjectsProperty()
+    #[Computed] // Add this attribute to properly mark it as computed
+    public function projects()
     {
         $query = Project::query()
             ->where('user_id', auth()->id());
@@ -101,8 +82,8 @@ class ShowProjects extends Component
 
     public function render()
     {
-        return view('livewire.projects.show-projects',[
-            'projects' => $this->projects,
+        return view('livewire.projects.show-projects', [
+            'projects' => $this->projects, // This now properly calls the computed property
         ]);
     }
 }

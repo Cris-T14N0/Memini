@@ -1,110 +1,132 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('As suas pastas :)') }}
+            {{ __('Pastas') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="pb-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Search Bar -->
-            <div class="mb-8">
-                <div class="relative">
-                    <input type="text" placeholder="Search"
-                        class="w-full md:w-64 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
+
+            <!-- Welcome Card -->
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-2xl mb-8">
+                <div class="p-8 flex items-center justify-between">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                            As tuas pastas
+                        </h1>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Nesta página vais poder fazer a gestão das tuas pastas!
+                        </p>
+
+                        <button wire:click="$dispatch('openModal', { component: 'folders.create-folders-modal' })"
+                        class="mt-4 inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-200">
+                            Criar Pasta
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Main Content Card -->
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-8 p-8">
-                <div class="flex items-start justify-between">
-                    <div>
-                        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">As tuas pastas</h1>
-                        <p class="text-gray-600 dark:text-gray-400 max-w-lg">
-                            Crie e organize pastas com os teus álbuns e memórias familiares. Partilha os teus momentos
-                            com outros membros da família.
-                        </p>
-                        <button
-                            class="mt-6 px-6 py-2.5 bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors">
-                            Nova Pasta
-                        </button>
-                    </div>
-                    <div class="flex items-center justify-center px-6 pt-3 mr-10">
-                        <!-- Light logo -->
-                        <img src="{{ asset('assets/img/light-mode-cat.png') }}" alt="Cat Light"
-                            class="block dark:hidden w-40 h-40 object-contain">
+            <!-- Search / Sort -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-8">
+                <div class="flex flex-col lg:flex-row gap-4">
 
-                        <!-- Dark logo -->
-                        <img src="{{ asset('assets/img/dark-mode-cat.png') }}" alt="Cat Dark"
-                            class="hidden dark:block w-40 h-40 object-contain">
+                    <!-- SEARCH -->
+                    <div class="flex-1">
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                wire:model.live.debounce.300ms="search"
+                                placeholder="Procurar pastas..." 
+                                class="w-full px-4 py-2.5 pl-11 rounded-lg bg-gray-50 dark:bg-gray-700 
+                                       border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100 
+                                       focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400">
+
+                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" 
+                                 fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- SORT -->
+                    <div class="lg:w-64">
+                        <select 
+                            wire:model.live="sortBy"
+                            class="w-full px-4 py-2.5 rounded-lg bg-gray-50 dark:bg-gray-700 
+                                   border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100 
+                                   focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400">
+                            <option value="date-desc">Data (Mais Recente)</option>
+                            <option value="date-asc">Data (Mais Antigo)</option>
+                            <option value="name-asc">Nome (A-Z)</option>
+                            <option value="name-desc">Nome (Z-A)</option>
+                        </select>
                     </div>
                 </div>
             </div>
 
             <!-- Folders Section -->
-            <div>
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Pastas</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Aniversários Card -->
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-                        <div class="flex justify-center mb-4">
-                            <svg class="w-12 h-12 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">Aniversários</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Filhos</p>
-                        <button
-                            class="w-full px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors text-sm font-medium">
-                            Ver projetos
-                        </button>
-                    </div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Pastas</h2>
 
-                    <!-- Eventos Card -->
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-                        <div class="flex justify-center mb-4">
-                            <svg class="w-12 h-12 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">Eventos</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Eventos familiares</p>
-                        <button
-                            class="w-full px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors text-sm font-medium">
-                            Ver projetos
-                        </button>
-                    </div>
+            @if($folders->count())
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    @foreach($folders as $folder)
+                        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 hover:scale-105 transform group">
+                            <!-- Icon -->
+                            <div class="flex justify-center mb-4">
+                                @if($folder->icon)
+                                    <div class="text-5xl">{{ $folder->icon }}</div>
+                                @else
+                                    <svg class="w-12 h-12 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
+                                    </svg>
+                                @endif
+                            </div>
 
-                    <!-- Ginásio Card -->
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-                        <div class="flex justify-center mb-4">
-                            <svg class="w-12 h-12 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M3 12h3m12 0h3m-6-9v3m0 12v3M7.05 7.05l2.12 2.12m5.66 5.66l2.12 2.12M7.05 16.95l2.12-2.12m5.66-5.66l2.12-2.12">
-                                </path>
-                            </svg>
+                            <!-- Folder Name -->
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 text-center">
+                                {{ $folder->name }}
+                            </h3>
+
+                            <!-- Project Count -->
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 text-center">
+                                {{ $folder->projects_count }} {{ $folder->projects_count === 1 ? 'projeto' : 'projetos' }}
+                            </p>
+
+                            <!-- Action Buttons -->
+                            <div class="space-y-2">
+                                <a href="#"
+                                    class="block w-full px-4 py-2.5 bg-gradient-to-r from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-900/50 text-purple-700 dark:text-purple-300 rounded-lg hover:from-purple-200 hover:to-purple-300 dark:hover:from-purple-900/50 dark:hover:to-purple-900/70 transition-all duration-200 text-sm font-semibold text-center">
+                                    Ver projetos
+                                </a>
+
+                                <!-- Edit & Delete Buttons (Hidden by default, shown on hover) -->
+                                <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                    <button 
+                                        wire:click="editFolder({{ $folder->id }})"
+                                        class="flex-1 px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-all text-sm font-medium">
+                                        Editar
+                                    </button>
+                                    <button 
+                                        wire:click="deleteFolder({{ $folder->id }})"
+                                        class="flex-1 px-3 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/50 transition-all text-sm font-medium">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">Ginásio</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">A minha evolução no ginásio</p>
-                        <button
-                            class="w-full px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors text-sm font-medium">
-                            Ver projetos
-                        </button>
-                    </div>
+                    @endforeach
                 </div>
-            </div>
+            @else
+                <div class="text-center py-12">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">Nenhuma pasta</h3>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Comece criando uma nova pasta.</p>
+                </div>
+            @endif
         </div>
     </div>
 </div>

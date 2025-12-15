@@ -3,7 +3,6 @@
 namespace App\Livewire\Projects;
 
 use App\Models\Project;
-use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Facades\Storage;
 
@@ -46,7 +45,8 @@ class DeleteProjectsModal extends ModalComponent
         // Delete the entire project folder if empty
         $userId = auth()->id();
         $projectFolder = "{$userId}/projects";
-        if (Storage::disk('public')->exists($projectFolder)) {
+        if (Storage::disk('public')->exists($projectFolder))
+        {
             $files = Storage::disk('public')->files($projectFolder);
             if (empty($files)) {
                 Storage::disk('public')->deleteDirectory($projectFolder);

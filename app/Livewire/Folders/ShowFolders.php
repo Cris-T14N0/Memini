@@ -25,7 +25,7 @@ class ShowFolders extends ModalComponent
 
     public function deleteFolder($folderId)
     {
-        $this->dispatch('openModal', component: 'folders.delete-folder-modal', arguments: ['folderId' => $folderId]);
+        $this->dispatch('openModal', component: 'folders.delete-folders-modal', arguments: ['folderId' => $folderId]);
     }
 
     #[Computed]

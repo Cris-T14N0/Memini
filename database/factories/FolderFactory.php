@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Folder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,15 +10,15 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class FolderFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Folder::class;
+
     public function definition(): array
     {
+        $availableIcons = ['🎂', '👥', '💪', '🏖️', '🎄', '🎓', '🏠', '💼', '🎮', '📚', '🎵', '🎨', '⚽', '🍕', '✈️'];
+
         return [
-            //
+            'name' => $this->faker->word(),
+            'icon' => $this->faker->randomElement($availableIcons),
         ];
     }
 }

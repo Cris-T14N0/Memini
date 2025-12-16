@@ -1,7 +1,10 @@
 <?php
+
 namespace Database\Factories;
 
 use App\Models\Album;
+use App\Models\Folder;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -10,24 +13,19 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProjectFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Project::class;
+
     public function definition(): array
     {
         return [
             'user_id' => User::factory(),
-            'name' => fake()->sentence(3),
-            'description' => fake()->sentence(),
-            'completed' => fake()->boolean(30), // 30% chance of being completed
+            'folder_id' => Folder::factory(),
+            'name' => $this->faker->sentence(3),
+            'description' => $this->faker->paragraph(),
+            'completed' => $this->faker->boolean(30),
         ];
     }
 
-    /**
-     * Indicate that the project is completed.
-     */
     public function completed(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -35,9 +33,6 @@ class ProjectFactory extends Factory
         ]);
     }
 
-    /**
-     * Indicate that the project is in progress.
-     */
     public function inProgress(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -45,9 +40,6 @@ class ProjectFactory extends Factory
         ]);
     }
 
-    /**
-     * Create albums for this project after creation.
-     */
     public function withAlbums(int $count): static
     {
         return $this->has(Album::factory()->count($count), 'albums');

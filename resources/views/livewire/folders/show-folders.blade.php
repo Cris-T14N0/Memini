@@ -72,49 +72,79 @@
             @if($folders->count())
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     @foreach($folders as $folder)
-                        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 hover:scale-105 transform group">
-                            <!-- Icon -->
-                            <div class="flex justify-center mb-4">
-                                @if($folder->icon)
-                                    <div class="text-5xl">{{ $folder->icon }}</div>
-                                @else
-                                    <svg class="w-12 h-12 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
+                        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 transform group relative">
+                            
+                            <!-- Three Dots Menu -->
+                            <div class="absolute top-4 right-4 z-10" x-data="{ open: false }">
+                                <button @click.stop="open = !open" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 16 16">
+                                        <circle cx="8" cy="3" r="1.5"/>
+                                        <circle cx="8" cy="8" r="1.5"/>
+                                        <circle cx="8" cy="13" r="1.5"/>
                                     </svg>
-                                @endif
-                            </div>
+                                </button>
 
-                            <!-- Folder Name -->
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 text-center">
-                                {{ $folder->name }}
-                            </h3>
+                                <!-- Dropdown Menu -->
+                                <div x-show="open" 
+                                     @click.away="open = false"
+                                     x-transition:enter="transition ease-out duration-100"
+                                     x-transition:enter-start="transform opacity-0 scale-95"
+                                     x-transition:enter-end="transform opacity-100 scale-100"
+                                     x-transition:leave="transition ease-in duration-75"
+                                     x-transition:leave-start="transform opacity-100 scale-100"
+                                     x-transition:leave-end="transform opacity-0 scale-95"
+                                     class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 py-1"
+                                     style="display: none;">
+                                    
+                                    <a href="#" 
+                                       class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                        Gerir
+                                    </a>
 
-                            <!-- Project Count -->
-                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 text-center">
-                                {{ $folder->projects_count }} {{ $folder->projects_count === 1 ? 'projeto' : 'projetos' }}
-                            </p>
-
-                            <!-- Action Buttons -->
-                            <div class="space-y-2">
-                                <a href="#"
-                                    class="block w-full px-4 py-2.5 bg-gradient-to-r from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-900/50 text-purple-700 dark:text-purple-300 rounded-lg hover:from-purple-200 hover:to-purple-300 dark:hover:from-purple-900/50 dark:hover:to-purple-900/70 transition-all duration-200 text-sm font-semibold text-center">
-                                    Ver projetos
-                                </a>
-
-                                <!-- Edit & Delete Buttons (Hidden by default, shown on hover) -->
-                                <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                    <button 
-                                        wire:click="editFolder({{ $folder->id }})"
-                                        class="flex-1 px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-all text-sm font-medium">
+                                    <button wire:click="editFolder({{ $folder->id }})"
+                                            class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                        </svg>
                                         Editar
                                     </button>
-                                    <button 
-                                        wire:click="deleteFolder({{ $folder->id }})"
-                                        class="flex-1 px-3 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/50 transition-all text-sm font-medium">
+
+                                    <button wire:click="deleteFolder({{ $folder->id }})"
+                                            class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                                        <svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                        </svg>
                                         Eliminar
                                     </button>
                                 </div>
                             </div>
+
+                            <!-- Clickable Card Content -->
+                            <a href="#" class="block p-6">
+                                <!-- Icon -->
+                                <div class="flex justify-center mb-4">
+                                    @if($folder->icon)
+                                        <div class="text-5xl">{{ $folder->icon }}</div>
+                                    @else
+                                        <svg class="w-12 h-12 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
+                                        </svg>
+                                    @endif
+                                </div>
+
+                                <!-- Folder Name -->
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 text-center">
+                                    {{ $folder->name }}
+                                </h3>
+
+                                <!-- Project Count -->
+                                <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
+                                    {{ $folder->projects_count }} {{ $folder->projects_count === 1 ? 'projeto' : 'projetos' }}
+                                </p>
+                            </a>
                         </div>
                     @endforeach
                 </div>

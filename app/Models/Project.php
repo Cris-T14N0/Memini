@@ -20,6 +20,12 @@ class Project extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    // To what folder it belongs to
+    public function folder(): BelongsTo
+    {
+        return $this->belongsTo(Folder::class, 'folder_id');
+    }
+
     // All members (including owner)
     public function users(): BelongsToMany
     {

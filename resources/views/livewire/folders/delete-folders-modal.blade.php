@@ -27,7 +27,7 @@
             <div class="text-sm text-red-800 dark:text-red-300">
                 @if($projectsCount > 0)
                     <p class="font-semibold mb-1">Atenção!</p>
-                    <p>Esta pasta contém <strong>{{ $projectsCount }}</strong> {{ $projectsCount === 1 ? 'projeto' : 'projetos' }}. Os projetos não serão eliminados, apenas a sua associação com esta pasta será removida.</p>
+                    <p>Esta pasta contém <strong>{{ $projectsCount }}</strong> {{ $projectsCount === 1 ? 'projeto' : 'projetos' }}.</p>
                 @else
                     <p class="font-semibold mb-1">Atenção: Esta ação é irreversível!</p>
                     <p>Você não vai poder voltar atrás. A pasta será permanentemente eliminada.</p>
@@ -35,6 +35,26 @@
             </div>
         </div>
     </div>
+
+    @if($projectsCount > 0)
+        <div class="mb-6 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+            <label class="flex items-start cursor-pointer group">
+                <input 
+                    type="checkbox" 
+                    wire:model="deleteProjects"
+                    class="w-5 h-5 text-red-600 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded focus:ring-red-500 dark:focus:ring-red-600 focus:ring-2 mt-0.5"
+                >
+                <div class="ml-3">
+                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100 block mb-1">
+                        Eliminar também os projetos
+                    </span>
+                    <span class="text-xs text-gray-600 dark:text-gray-400">
+                        Se não selecionar esta opção, os projetos serão mantidos sem pasta associada.
+                    </span>
+                </div>
+            </label>
+        </div>
+    @endif
 
     <div class="flex justify-between space-x-3">
         <button 

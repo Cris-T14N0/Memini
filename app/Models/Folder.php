@@ -10,13 +10,13 @@ class Folder extends Model
 {
     use HasFactory;
 
-    // ✅ Allow mass assignment for these fields
+    // Allow mass assignment for these fields
     protected $fillable = [
         'name',
         'icon',
     ];
 
-    // ✅ A folder can have many projects
+    // A folder can have many projects
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class, 'folder_id');

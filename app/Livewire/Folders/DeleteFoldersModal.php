@@ -10,11 +10,11 @@ class DeleteFoldersModal extends ModalComponent
     public $folderId;
     public $folderName;
     public $projectsCount;
+    public $deleteProjects = false;
 
     public function mount($folderId)
     {
         $folder = Folder::withCount('projects')->findOrFail($folderId);
-        
         $this->folderId = $folder->id;
         $this->folderName = $folder->name;
         $this->projectsCount = $folder->projects_count;
@@ -25,12 +25,19 @@ class DeleteFoldersModal extends ModalComponent
         try {
             $folder = Folder::findOrFail($this->folderId);
             
+            if ($this->deleteProjects) {
+                // Delete all projects in the folder
+                $folder->projects()->delete();
+            } else {
+                // Just remove folder association
+                $folder->projects()->update(['folder_id' => null]);
+            }
+            
             $folder->delete();
 
             Log::info('Folder deleted: ' . $this->folderName);
 
             session()->flash('success', 'Pasta eliminada com sucesso!');
-            
             $this->dispatch('folderChanged');
             $this->closeModal();
 

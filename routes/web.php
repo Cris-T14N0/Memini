@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Folders\ShowProjectsOnFolders;
+use App\Models\Folder;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
@@ -12,7 +14,13 @@ Route::view('dashboard', 'dashboard')
 // Route Dashboard Pastas
 Route::view('folders.folders-dashboard', 'folders.folders-dashboard')
     ->middleware(['auth', 'verified'])
-    ->name('pastas-dashboard');
+    ->name('folders-dashboard');
+
+Route::get('/folders/{folder}', function (Folder $folder) {
+    return view('folders.projects-on-folders-dashboard', compact('folder'));})
+    ->middleware(['auth', 'verified'])
+    ->name('folders.show');
+
 
 // Route Dashboard Projetos
 Route::view('projects.projects-dashboard', 'projects.projects-dashboard')

@@ -123,7 +123,7 @@
                             </div>
 
                             <!-- Clickable Card Content -->
-                            <a href="#" class="block p-6">
+                            <a href="{{ route('folders.show', $folder->id) }}" class="block p-6">
                                 <!-- Icon -->
                                 <div class="flex justify-center mb-4">
                                     @if($folder->icon)

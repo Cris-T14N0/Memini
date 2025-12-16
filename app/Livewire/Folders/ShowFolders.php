@@ -28,6 +28,11 @@ class ShowFolders extends ModalComponent
         $this->dispatch('openModal', component: 'folders.delete-folders-modal', arguments: ['folderId' => $folderId]);
     }
 
+    public function manageFolder($folderId)
+    {
+        $this->dispatch('openModal', component: 'folders.manage-folders-modal', arguments: ['folderId' => $folderId]);
+    }
+
     #[Computed]
     public function folders()
     {

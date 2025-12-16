@@ -42,11 +42,12 @@
                         </div>
 
                         <button
-                            wire:click="$dispatch('openModal', { component: 'projects.create-projects-modal', arguments: { folderId: {{ $folder->id }} } })"
+                            wire:click="$dispatch('openModal', { component: 'projects.create-projects-modal', arguments: { folderId: {{ $folder->id }} }})"
                             class="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-200"
                         >
                             Criar Projeto
                         </button>
+
                     </div>
                 </div>
             </div>

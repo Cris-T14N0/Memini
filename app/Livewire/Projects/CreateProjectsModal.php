@@ -9,15 +9,24 @@ use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 class CreateProjectsModal extends ModalComponent
 {
     use WithFileUploads;
 
-    public $name = '';
-    public $description = '';
+    public string $name = '';
+    public string $description = '';
     public $cover_image;
+    public ?int $folderId = null;
+
+    public function mount(?int $folderId = null): void
+    {
+        $this->folderId = $folderId;
+        
+        // Debug log to verify the folder ID is received
+        Log::info('CreateProjectsModal mounted with folderId: ' . ($folderId ?? 'null'));
+    }
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -35,25 +44,26 @@ class CreateProjectsModal extends ModalComponent
         'cover_image.max' => 'Image size cannot exceed 10MB.',
     ];
 
-    public function createProject()
+    public function createProject(): void
     {
         $this->validate();
 
-        try
-        {
+        try {
             $userId = Auth::id();
 
             // Hash the image name first
             $filename = $this->cover_image->hashName();
-            
+
             // Store in storage/app/public/{user_id}/projects/
             $path = $this->cover_image->storeAs("{$userId}/projects", $filename, 'public');
             
             Log::info('Image stored at path: ' . $path);
+            Log::info('Creating project with folderId: ' . ($this->folderId ?? 'null'));
 
             // Create project with the correct path from the start
             $project = Project::create([
                 'user_id' => $userId,
+                'folder_id' => $this->folderId, // This can be null
                 'name' => $this->name,
                 'description' => $this->description,
                 'cover_image_path' => $path,
@@ -61,19 +71,23 @@ class CreateProjectsModal extends ModalComponent
             ]);
 
             Log::info('Project created with ID: ' . $project->id);
+            Log::info('Project folder_id: ' . ($project->folder_id ?? 'null'));
             Log::info('Path in DB: ' . $project->cover_image_path);
 
             session()->flash('success', 'Projeto criado com sucesso!');
-            
-            // Dispatch event to refresh the dashboard
-            $this->dispatch('projectChanged');
-            $this->closeModal();
 
-        }
-        catch (Exception $e)
-        {
+            // Dispatch events to refresh the dashboard and folder view
+            $this->dispatch('projectChanged');
+            
+            if ($this->folderId) {
+                $this->dispatch('folderChanged');
+            }
+
+            $this->closeModal();
+        } catch (Exception $e) {
             Log::error('Project creation failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
+            
             session()->flash('error', 'Erro ao criar projeto: ' . $e->getMessage());
         }
     }
@@ -81,5 +95,10 @@ class CreateProjectsModal extends ModalComponent
     public function render()
     {
         return view('livewire.projects.create-projects-modal');
+    }
+
+    public static function modalMaxWidth(): string
+    {
+        return '2xl';
     }
 }

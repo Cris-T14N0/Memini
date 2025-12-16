@@ -37,17 +37,14 @@ class ManageFoldersModal extends ModalComponent
     public function getAvailableProjectsProperty(): Collection
     {
         return Project::where('user_id', auth()->id())
-            ->where(function ($query) {
-                $query->whereNull('folder_id')
-                    ->orWhere('folder_id', '!=', $this->folderId);
-            })
-            ->when($this->search, fn($query) => 
+            ->whereNull('folder_id') // only projects without a folder
+            ->when($this->search, fn ($query) =>
                 $query->where('name', 'like', "%{$this->search}%")
             )
-            ->with('folder')
             ->orderBy('name')
             ->get();
     }
+
 
     public function addProjectToFolder(int $projectId): void
     {

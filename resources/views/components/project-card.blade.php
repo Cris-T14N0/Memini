@@ -1,4 +1,4 @@
-@props(['project', 'statusType'])
+@props(['project', 'statusType', 'isOwner' => true])
 
 <div class="cursor-pointer bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
 
@@ -36,60 +36,77 @@
                         </span>
                     </div>
                 @endif
+
+                {{-- Status badge for non-owners --}}
+                @if(!$isOwner)
+                    <div class="mt-2">
+                        @if($statusType === 'progress')
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300">
+                                Em Progresso
+                            </span>
+                        @elseif($statusType === 'completed')
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300">
+                                Concluído
+                            </span>
+                        @endif
+                    </div>
+                @endif
             </div>
 
-            {{-- Options Menu --}}
-            <div class="relative" x-data="{ open: false }">
-                <button @click="open = !open" class="p-2 rounded-full text-gray-500 dark:text-gray-400
-           hover:bg-gray-100 dark:hover:bg-gray-700
-           focus:outline-none focus:ring-2 focus:ring-blue-500
-           transition">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4z
-                 M10 12a2 2 0 110-4 2 2 0 010 4z
-                 M10 18a2 2 0 110-4 2 2 0 010 4z" />
-                    </svg>
-                </button>
+            {{-- Options Menu (Only for owners) --}}
+            @if($isOwner)
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open" class="p-2 rounded-full text-gray-500 dark:text-gray-400
+               hover:bg-gray-100 dark:hover:bg-gray-700
+               focus:outline-none focus:ring-2 focus:ring-blue-500
+               transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 6a2 2 0 110-4 2 2 0 010 4z
+                     M10 12a2 2 0 110-4 2 2 0 010 4z
+                     M10 18a2 2 0 110-4 2 2 0 010 4z" />
+                        </svg>
+                    </button>
 
-                <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-150"
-                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="transition ease-in duration-100"
-                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute right-0 mt-2 w-52
-       bg-white dark:bg-gray-800
-       rounded-xl shadow-xl
-       border border-gray-100 dark:border-gray-700
-       z-20 overflow-hidden">
+                    <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-150"
+                        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-100"
+                        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute right-0 mt-2 w-52
+           bg-white dark:bg-gray-800
+           rounded-xl shadow-xl
+           border border-gray-100 dark:border-gray-700
+           z-20 overflow-hidden">
 
-                    {{-- Edit --}}
-                    <button
-                        @click="open = false; $dispatch('openModal', { component: 'projects.edit-projects-modal', arguments: { projectId: {{ $project->id }} } })"
-                        class="flex items-center w-full px-4 py-3 text-sm
+                        {{-- Edit --}}
+                        <button
+                            @click="open = false; $dispatch('openModal', { component: 'projects.edit-projects-modal', arguments: { projectId: {{ $project->id }} } })"
+                            class="flex items-center w-full px-4 py-3 text-sm
+                                text-gray-700 dark:text-gray-200
+                                hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                            ✏️ <span class="ml-3">Editar</span>
+                        </button>
+
+                        {{-- Share --}}
+                        <button 
+                        wire:click="$dispatch('openModal', { component: 'projects.share-projects-modal', arguments: { projectId: {{ $project->id }} } })"
+                        @click="open = false;" class="flex items-center w-full px-4 py-3 text-sm
                             text-gray-700 dark:text-gray-200
                             hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                        ✏️ <span class="ml-3">Editar</span>
-                    </button>
+                            🔗 <span class="ml-3">Partilhar</span>
+                        </button>
 
-                    {{-- Share --}}
-                    <button 
-                    wire:click="$dispatch('openModal', { component: 'projects.share-projects-modal', arguments: { projectId: {{ $project->id }} } })"
-                    @click="open = false;" class="flex items-center w-full px-4 py-3 text-sm
-                        text-gray-700 dark:text-gray-200
-                        hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                        🔗 <span class="ml-3">Partilhar</span>
-                    </button>
+                        <div class="h-px bg-gray-100 dark:bg-gray-700"></div>
 
-                    <div class="h-px bg-gray-100 dark:bg-gray-700"></div>
-
-                    {{-- Delete --}}
-                    <button
-                        @click="open = false; $dispatch('openModal', { component: 'projects.delete-projects-modal', arguments: { projectId: {{ $project->id }} } })"
-                        class="flex items-center w-full px-4 py-3 text-sm
-           text-red-600 dark:text-red-400
-           hover:bg-red-50 dark:hover:bg-red-900/20 transition">
-                        🗑️ <span class="ml-3">Eliminar</span>
-                    </button>
+                        {{-- Delete --}}
+                        <button
+                            @click="open = false; $dispatch('openModal', { component: 'projects.delete-projects-modal', arguments: { projectId: {{ $project->id }} } })"
+                            class="flex items-center w-full px-4 py-3 text-sm
+               text-red-600 dark:text-red-400
+               hover:bg-red-50 dark:hover:bg-red-900/20 transition">
+                            🗑️ <span class="ml-3">Eliminar</span>
+                        </button>
+                    </div>
                 </div>
-            </div>
+            @endif
 
         </div>
 
@@ -115,16 +132,19 @@
                 </span>
             </div>
 
-            @if($statusType === 'progress')
-                <span
-                    class="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-medium">
-                    Em Progresso
-                </span>
-            @elseif($statusType === 'completed')
-                <span
-                    class="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-3 py-1 rounded-full text-xs font-medium">
-                    Concluído
-                </span>
+            {{-- Status badge for owners only (non-owners see it at the top) --}}
+            @if($isOwner)
+                @if($statusType === 'progress')
+                    <span
+                        class="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-medium">
+                        Em Progresso
+                    </span>
+                @elseif($statusType === 'completed')
+                    <span
+                        class="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-3 py-1 rounded-full text-xs font-medium">
+                        Concluído
+                    </span>
+                @endif
             @endif
         </div>
     </div>

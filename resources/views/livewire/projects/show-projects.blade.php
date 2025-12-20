@@ -97,42 +97,69 @@
                         >
                             Concluídos
                         </button>
+
+                        <button
+                            wire:click="toggleFilterShared"
+                            class="px-4 py-2.5 rounded-lg font-medium transition-all
+                                {{ $showShared
+                                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 border-2 border-green-500'
+                                    : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600' }}"
+                        >
+                            Partilhados
+                        </button>
                     </div>
                 </div>
             </div>
 
-            @if($showProgress)
+            <!-- MY PROJECTS IN PROGRESS -->
+            @if($showProgress && $projects['progress']->count())
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-                    Projetos Em Progresso
+                    Em Progresso
                 </h2>
 
-                @if($projects['progress']->count())
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        @foreach($projects['progress'] as $project)
-                            <x-project-card
-                                :project="$project"
-                                statusType="progress"
-                            />
-                        @endforeach
-                    </div>
-                @endif
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    @foreach($projects['progress'] as $project)
+                        <x-project-card
+                            :project="$project"
+                            statusType="progress"
+                            :isOwner="true"
+                        />
+                    @endforeach
+                </div>
             @endif
 
-            @if($showCompleted)
+            <!-- MY COMPLETED PROJECTS -->
+            @if($showCompleted && $projects['completed']->count())
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-                    Projetos Concluídos
+                    Concluídos
                 </h2>
 
-                @if($projects['completed']->count())
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        @foreach($projects['completed'] as $project)
-                            <x-project-card
-                                :project="$project"
-                                statusType="completed"
-                            />
-                        @endforeach
-                    </div>
-                @endif
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    @foreach($projects['completed'] as $project)
+                        <x-project-card
+                            :project="$project"
+                            statusType="completed"
+                            :isOwner="true"
+                        />
+                    @endforeach
+                </div>
+            @endif
+
+            <!-- SHARED PROJECTS -->
+            @if($showShared && $sharedProjects->count())
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+                    Projetos Partilhados Comigo
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    @foreach($sharedProjects as $project)
+                        <x-project-card
+                            :project="$project"
+                            :statusType="$project->completed ? 'completed' : 'progress'"
+                            :isOwner="false"
+                        />
+                    @endforeach
+                </div>
             @endif
 
         </div>

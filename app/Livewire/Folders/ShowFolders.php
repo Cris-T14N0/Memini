@@ -36,21 +36,21 @@ class ShowFolders extends ModalComponent
     #[Computed]
     public function folders()
     {
-        $query = Folder::query()->withCount('projects');
+        $folders = auth()->user()->folders()->withCount('projects');
 
         if ($this->search !== '') {
-            $query->where('name', 'like', "%{$this->search}%");
+            $folders->where('name', 'like', "%{$this->search}%");
         }
 
         match ($this->sortBy) {
-            'date-asc'  => $query->orderBy('created_at', 'asc'),
-            'date-desc' => $query->orderBy('created_at', 'desc'),
-            'name-asc'  => $query->orderBy('name', 'asc'),
-            'name-desc' => $query->orderBy('name', 'desc'),
-            default     => $query->orderBy('created_at', 'desc'),
+            'date-asc'  => $folders->orderBy('created_at', 'asc'),
+            'date-desc' => $folders->orderBy('created_at', 'desc'),
+            'name-asc'  => $folders->orderBy('name', 'asc'),
+            'name-desc' => $folders->orderBy('name', 'desc'),
+            default     => $folders->orderBy('created_at', 'desc'),
         };
 
-        return $query->get();
+        return $folders->get();
     }
 
     public function render()

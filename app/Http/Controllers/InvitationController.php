@@ -12,7 +12,7 @@ class InvitationController extends Controller
         $invitation = ProjectInvitation::where('token', $token)->firstOrFail();
 
         if (! $invitation->isValid()) {
-            return 'Invitation is invalid or expired.';
+            return view('invitations.project-invitation-refused');
         }
 
         // Mark invitation as accepted
@@ -24,10 +24,12 @@ class InvitationController extends Controller
         // Attach user to project with default role_id = 1
         $invitation->project->users()->syncWithoutDetaching([
             Auth::id() => [
+                // Makes the default role 1 = viewer
                 'role_id' => 1,
             ],
         ]);
 
-        return 'You have successfully joined the project!';
+        // You have successfully joined the project
+        return view('invitations.project-invitation-accepted');
     }
 }

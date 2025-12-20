@@ -1,10 +1,13 @@
 <?php
 
-use App\Livewire\Folders\ShowProjectsOnFolders;
+use App\Http\Controllers\InvitationController;
 use App\Models\Folder;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
+
+Route::get('/invitations/accept/{token}', [InvitationController::class, 'accept']);
+
 
 // Route Dashboard
 Route::view('dashboard', 'dashboard')

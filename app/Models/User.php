@@ -26,10 +26,21 @@ class User extends Authenticatable
         'profile_photo',
     ];
 
-    // Função projects para receber todos os projects do user
     public function projects()
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class, 'project_user')
+            ->withPivot('role_id')
+            ->withTimestamps();
+    }
+
+    public function projectInvitations()
+    {
+        return $this->hasMany(ProjectInvitation::class, 'user_id');
+    }
+
+    public function sentInvitations()
+    {
+        return $this->hasMany(ProjectInvitation::class, 'invited_by_user_id');
     }
 
     public function hasPermissionInProject($projectId, string $permission): bool

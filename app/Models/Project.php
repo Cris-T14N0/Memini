@@ -26,24 +26,22 @@ class Project extends Model
         return $this->belongsTo(Folder::class, 'folder_id');
     }
 
-    // All members (including owner)
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class, 'project_user')
-            ->withPivot('role_id')
-            ->withTimestamps();
-    }
-
     // Albums & medias
     public function albums(): HasMany
     {
         return $this->hasMany(Album::class);
     }
 
-    // Invitations
-    public function invitations(): HasMany
+    public function invitations()
     {
         return $this->hasMany(ProjectInvitation::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'project_user')
+            ->withPivot('role_id')
+            ->withTimestamps();
     }
 
     // Helper: current user's role in this project

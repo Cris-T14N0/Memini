@@ -20,4 +20,18 @@ class RoleFactory extends Factory
             //
         ];
     }
+
+    public function editor(): static
+    {
+        return $this->state(fn () => [
+            'name' => 'editor',
+        ]);
+    }
+
+    public function viewer(): static
+    {
+        return $this->state(fn () => [
+            'name' => 'viewer',
+        ]);
+    }
 }

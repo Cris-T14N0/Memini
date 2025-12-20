@@ -3,14 +3,17 @@
 namespace App\Livewire\Folders;
 
 use App\Models\Folder;
+use Auth;
 use Exception;
 use LivewireUI\Modal\ModalComponent;
 use Log;
 
 class CreateFoldersModal extends ModalComponent
 {
+    public $user;
     public $name = '';
     public $icon = '';
+
 
     public array $availableIcons = [
         '🎂', '👥', '💪', '🏖️', '🎄', '🎓', '🏠', '💼', '🎮', '📚', '🎵', '🎨', '⚽', '🍕', '✈️',
@@ -37,9 +40,10 @@ class CreateFoldersModal extends ModalComponent
 
         // try
         // {
-            Folder ::create([
+            Folder::create([
                 'name' => $this->name,
                 'icon' => $this->icon ?: null,
+                'user_id' => $this->name,
             ]);
 
             Log::info('Folder created: ' . $this->name);

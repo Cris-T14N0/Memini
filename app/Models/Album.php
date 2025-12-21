@@ -13,6 +13,7 @@ class Album extends Model
         'project_id',
         'title',
         'description',
+        'cover_image_path',
     ];
 
     /**

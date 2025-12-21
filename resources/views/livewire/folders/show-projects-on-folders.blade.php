@@ -35,8 +35,8 @@
                                     {{ $folder->name }}
                                 </h1>
                                 <p class="text-gray-600 dark:text-gray-400">
-                                    {{ $projects['progress']->count() + $projects['completed']->count() }} 
-                                    {{ ($projects['progress']->count() + $projects['completed']->count()) === 1 ? 'projeto' : 'projetos' }}
+                                    {{ $projects['progress']->count() + $projects['completed']->count() + $sharedProjects->count() }} 
+                                    {{ ($projects['progress']->count() + $projects['completed']->count() + $sharedProjects->count()) === 1 ? 'projeto' : 'projetos' }}
                                 </p>
                             </div>
                         </div>
@@ -119,58 +119,69 @@
                         >
                             Concluídos
                         </button>
+
+                        <button
+                            wire:click="toggleFilterShared"
+                            class="px-4 py-2.5 rounded-lg font-medium transition-all
+                                {{ $showShared
+                                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 border-2 border-green-500'
+                                    : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600' }}"
+                        >
+                            Partilhados
+                        </button>
                     </div>
                 </div>
             </div>
 
-            @if($showProgress)
+            <!-- MY PROJECTS IN PROGRESS -->
+            @if($showProgress && $projects['progress']->count())
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-                    Projetos Em Progresso
+                    Meus Projetos Em Progresso
                 </h2>
 
-                @if($projects['progress']->count())
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        @foreach($projects['progress'] as $project)
-                            <x-project-card
-                                :project="$project"
-                                statusType="progress"
-                            />
-                        @endforeach
-                    </div>
-                @else
-                    <div class="text-center py-8 mb-8">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">Nenhum projeto em progresso</h3>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Crie um novo projeto nesta pasta.</p>
-                    </div>
-                @endif
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    @foreach($projects['progress'] as $project)
+                        <x-project-card
+                            :project="$project"
+                            statusType="progress"
+                            :isOwner="true"
+                        />
+                    @endforeach
+                </div>
             @endif
 
-            @if($showCompleted)
+            <!-- MY COMPLETED PROJECTS -->
+            @if($showCompleted && $projects['completed']->count())
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-                    Projetos Concluídos
+                    Meus Projetos Concluídos
                 </h2>
 
-                @if($projects['completed']->count())
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        @foreach($projects['completed'] as $project)
-                            <x-project-card
-                                :project="$project"
-                                statusType="completed"
-                            />
-                        @endforeach
-                    </div>
-                @else
-                    <div class="text-center py-8">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">Nenhum projeto concluído</h3>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Complete seus projetos para vê-los aqui.</p>
-                    </div>
-                @endif
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    @foreach($projects['completed'] as $project)
+                        <x-project-card
+                            :project="$project"
+                            statusType="completed"
+                            :isOwner="true"
+                        />
+                    @endforeach
+                </div>
+            @endif
+
+            <!-- SHARED PROJECTS -->
+            @if($showShared && $sharedProjects->count())
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+                    Projetos Partilhados Comigo
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    @foreach($sharedProjects as $project)
+                        <x-project-card
+                            :project="$project"
+                            :statusType="$project->completed ? 'completed' : 'progress'"
+                            :isOwner="false"
+                        />
+                    @endforeach
+                </div>
             @endif
 
         </div>

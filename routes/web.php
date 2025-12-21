@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InvitationController;
 use App\Models\Folder;
+use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
@@ -31,14 +32,24 @@ Route::view('projects.projects-dashboard', 'projects.projects-dashboard')
     ->name('projects-dashboard');
 
 // Route Dashboard Álbuns
-Route::view('livewire.albuns.albuns-dashboard', 'livewire.albuns.albuns-dashboard')
+Route::view('albums.albums-on-project', 'albums.albums-on-project')
     ->middleware(['auth', 'verified'])
-    ->name('albuns-dashboard');
+    ->name('albums-dashboard');
 
 // Route Dashboard Álbuns
 Route::view('livewire.albuns.albuns-media-dashboard', 'livewire.albuns.albuns-media-dashboard')
     ->middleware(['auth', 'verified'])
     ->name('media-dashboard');
+
+Route::get('/projects/{project}/albums', function (Project $project) {
+    // Verify user has access to the project
+    if ($project->user_id !== auth()->id() && 
+        !$project->users()->where('user_id', auth()->id())->exists()) {
+        abort(403, 'Unauthorized');
+    }
+    
+    return view('albums.albums-on-project', ['projectId' => $project->id]);
+})->middleware(['auth', 'verified'])->name('projects.albums');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])

@@ -3,19 +3,22 @@
 <div class="cursor-pointer bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
 
     {{-- Cover Image --}}
-    @if($project->cover_image_path)
-        <div class="h-48 w-full overflow-hidden bg-gray-200 dark:bg-gray-700">
-            <img src="{{ Storage::url($project->cover_image_path) }}" alt="{{ $project->name }}"
-                class="w-full h-full object-cover">
-        </div>
-    @else
-        <div class="h-48 w-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-            <svg class="w-16 h-16 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-        </div>
-    @endif
+    <a href="{{ route('projects.albums', $project) }}" class="block">
+        @if($project->cover_image_path)
+            <div class="h-48 w-full overflow-hidden bg-gray-200 dark:bg-gray-700">
+                <img src="{{ Storage::url($project->cover_image_path) }}"
+                    alt="{{ $project->name }}"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+            </div>
+        @else
+            <div class="h-48 w-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <svg class="w-16 h-16 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+            </div>
+        @endif
+    </a>
 
     <div class="p-6">
 
@@ -53,29 +56,29 @@
                 @endif
             </div>
 
-            {{-- Options Menu (Only for owners) --}}
-            @if($isOwner)
-                <div class="relative" x-data="{ open: false }">
-                    <button @click="open = !open" class="p-2 rounded-full text-gray-500 dark:text-gray-400
-               hover:bg-gray-100 dark:hover:bg-gray-700
-               focus:outline-none focus:ring-2 focus:ring-blue-500
-               transition">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 6a2 2 0 110-4 2 2 0 010 4z
-                     M10 12a2 2 0 110-4 2 2 0 010 4z
-                     M10 18a2 2 0 110-4 2 2 0 010 4z" />
-                        </svg>
-                    </button>
+            {{-- Options Menu --}}
+            <div class="relative" x-data="{ open: false }">
+                <button @click="open = !open" class="p-2 rounded-full text-gray-500 dark:text-gray-400
+           hover:bg-gray-100 dark:hover:bg-gray-700
+           focus:outline-none focus:ring-2 focus:ring-blue-500
+           transition">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4z
+                 M10 12a2 2 0 110-4 2 2 0 010 4z
+                 M10 18a2 2 0 110-4 2 2 0 010 4z" />
+                    </svg>
+                </button>
 
-                    <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-150"
-                        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                        x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute right-0 mt-2 w-52
-           bg-white dark:bg-gray-800
-           rounded-xl shadow-xl
-           border border-gray-100 dark:border-gray-700
-           z-20 overflow-hidden">
+                <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-150"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-100"
+                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute right-0 mt-2 w-52
+       bg-white dark:bg-gray-800
+       rounded-xl shadow-xl
+       border border-gray-100 dark:border-gray-700
+       z-20 overflow-hidden">
 
+                    @if($isOwner)
                         {{-- Edit --}}
                         <button
                             @click="open = false; $dispatch('openModal', { component: 'projects.edit-projects-modal', arguments: { projectId: {{ $project->id }} } })"
@@ -100,13 +103,22 @@
                         <button
                             @click="open = false; $dispatch('openModal', { component: 'projects.delete-projects-modal', arguments: { projectId: {{ $project->id }} } })"
                             class="flex items-center w-full px-4 py-3 text-sm
-               text-red-600 dark:text-red-400
-               hover:bg-red-50 dark:hover:bg-red-900/20 transition">
+           text-red-600 dark:text-red-400
+           hover:bg-red-50 dark:hover:bg-red-900/20 transition">
                             🗑️ <span class="ml-3">Eliminar</span>
                         </button>
-                    </div>
+                    @else
+                        {{-- Leave Project (for non-owners) --}}
+                        <button
+                            @click="open = false; $dispatch('openModal', { component: 'projects.leave-shared-projects', arguments: { projectId: {{ $project->id }} } })"
+                            class="flex items-center w-full px-4 py-3 text-sm
+           text-red-600 dark:text-red-400
+           hover:bg-red-50 dark:hover:bg-red-900/20 transition">
+                            🚪 <span class="ml-3">Sair do Projeto</span>
+                        </button>
+                    @endif
                 </div>
-            @endif
+            </div>
 
         </div>
 

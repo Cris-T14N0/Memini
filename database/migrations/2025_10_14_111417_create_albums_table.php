@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Project::class)->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
+            $table->string('cover_image_path')->nullable();
             $table->timestamps();
         });
     }

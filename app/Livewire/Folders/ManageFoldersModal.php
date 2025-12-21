@@ -16,28 +16,24 @@ class ManageFoldersModal extends ModalComponent
     public function mount($folderId): void
     {
         $this->folderId = $folderId;
-        
-        // Load folder with user authorization
+
         $this->folder = Folder::where('id', $folderId)
             ->where('user_id', auth()->id())
             ->firstOrFail();
     }
 
+    /**
+     * Projects currently inside this folder
+     */
     public function getProjectsInFolderProperty(): Collection
     {
         return Project::where('folder_id', $this->folderId)
-            ->where('user_id', auth()->id())
-            ->when($this->search, fn($query) => 
-                $query->where('name', 'like', "%{$this->search}%")
-            )
-            ->orderBy('name')
-            ->get();
-    }
-
-    public function getAvailableProjectsProperty(): Collection
-    {
-        return Project::where('user_id', auth()->id())
-            ->whereNull('folder_id') // only projects without a folder
+            ->where(function ($query) {
+                $query->where('user_id', auth()->id())
+                      ->orWhereHas('users', function ($q) {
+                          $q->where('user_id', auth()->id());
+                      });
+            })
             ->when($this->search, fn ($query) =>
                 $query->where('name', 'like', "%{$this->search}%")
             )
@@ -45,35 +41,72 @@ class ManageFoldersModal extends ModalComponent
             ->get();
     }
 
+    /**
+     * Projects available to be added
+     */
+    public function getAvailableProjectsProperty(): Collection
+    {
+        $ownedProjects = Project::where('user_id', auth()->id())
+            ->whereNull('folder_id')
+            ->when($this->search, fn ($query) =>
+                $query->where('name', 'like', "%{$this->search}%")
+            )
+            ->get();
+
+        $sharedProjects = auth()->user()->projects()
+            ->whereNull('folder_id')
+            ->when($this->search, fn ($query) =>
+                $query->where('name', 'like', "%{$this->search}%")
+            )
+            ->get();
+
+        return $ownedProjects
+            ->merge($sharedProjects)
+            ->unique('id')
+            ->sortBy('name')
+            ->values();
+    }
 
     public function addProjectToFolder(int $projectId): void
     {
         $project = Project::where('id', $projectId)
-            ->where('user_id', auth()->id())
+            ->where(function ($query) {
+                $query->where('user_id', auth()->id())
+                      ->orWhereHas('users', function ($q) {
+                          $q->where('user_id', auth()->id());
+                      });
+            })
             ->firstOrFail();
 
-        $project->folder_id = $this->folderId;
-        $project->save();
+        $project->update([
+            'folder_id' => $this->folderId,
+        ]);
 
         $this->dispatch('projectChanged');
         $this->dispatch('folderChanged');
-        
+
         session()->flash('message', 'Projeto adicionado à pasta com sucesso!');
     }
 
     public function removeProjectFromFolder(int $projectId): void
     {
         $project = Project::where('id', $projectId)
-            ->where('user_id', auth()->id())
             ->where('folder_id', $this->folderId)
+            ->where(function ($query) {
+                $query->where('user_id', auth()->id())
+                      ->orWhereHas('users', function ($q) {
+                          $q->where('user_id', auth()->id());
+                      });
+            })
             ->firstOrFail();
 
-        $project->folder_id = null;
-        $project->save();
+        $project->update([
+            'folder_id' => null,
+        ]);
 
         $this->dispatch('projectChanged');
         $this->dispatch('folderChanged');
-        
+
         session()->flash('message', 'Projeto removido da pasta com sucesso!');
     }
 

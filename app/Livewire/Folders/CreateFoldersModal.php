@@ -43,7 +43,7 @@ class CreateFoldersModal extends ModalComponent
             Folder::create([
                 'name' => $this->name,
                 'icon' => $this->icon ?: null,
-                'user_id' => $this->name,
+                'user_id' => Auth::id(),
             ]);
 
             Log::info('Folder created: ' . $this->name);

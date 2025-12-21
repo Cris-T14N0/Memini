@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InvitationController;
+use App\Models\Album;
 use App\Models\Folder;
 use App\Models\Project;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,27 @@ Route::get('/projects/{project}/albums', function (Project $project) {
     
     return view('albums.albums-on-project', ['projectId' => $project->id]);
 })->middleware(['auth', 'verified'])->name('projects.albums');
+
+Route::middleware(['auth'])->group(function () {
+
+    // Album Media Route
+    Route::get('/albums/{album}', function (Album $album) {
+        // Check if user has access to this album's project
+        $project = $album->project;
+        $userId = auth()->id();
+        
+        // Check if user is owner or collaborator
+        $isOwner = $project->user_id === $userId;
+        $isCollaborator = $project->users()->where('user_id', $userId)->exists();
+        
+        if (!$isOwner && !$isCollaborator) {
+            abort(403, 'Não tens acesso a este álbum.');
+        }
+        
+        return view('media.media-on-albums', ['album' => $album]);
+    })->name('albums.show');
+
+});
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])

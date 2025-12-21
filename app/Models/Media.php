@@ -10,6 +10,8 @@ class Media extends Model
 {
     use HasFactory;
 
+    protected $table = 'medias';
+
     protected $fillable = [
         'album_id',
         'file_name',

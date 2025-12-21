@@ -1,21 +1,23 @@
 @props(['album', 'canEdit' => false])
 
-<div class="cursor-pointer bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
+<div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
 
-    {{-- Cover Image --}}
-    @if($album->cover_image_path)
-        <div class="h-48 w-full overflow-hidden bg-gray-200 dark:bg-gray-700">
-            <img src="{{ Storage::url($album->cover_image_path) }}" alt="{{ $album->title }}"
-                class="w-full h-full object-cover">
-        </div>
-    @else
-        <div class="h-48 w-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
-            <svg class="w-16 h-16 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-            </svg>
-        </div>
-    @endif
+    {{-- Cover Image - Clickable --}}
+    <a href="{{ route('albums.show', $album->id) }}" class="block">
+        @if($album->cover_image_path)
+            <div class="h-48 w-full overflow-hidden bg-gray-200 dark:bg-gray-700 group">
+                <img src="{{ Storage::url($album->cover_image_path) }}" alt="{{ $album->title }}"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            </div>
+        @else
+            <div class="h-48 w-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center group">
+                <svg class="w-16 h-16 text-white/30 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+            </div>
+        @endif
+    </a>
 
     <div class="p-6">
 
@@ -77,10 +79,12 @@
 
         </div>
 
-        {{-- Title --}}
-        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-            {{ $album->title }}
-        </h3>
+        {{-- Title (also clickable) --}}
+        <a href="{{ route('albums.show', $album->id) }}">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 hover:text-purple-600 dark:hover:text-purple-400 transition">
+                {{ $album->title }}
+            </h3>
+        </a>
 
         {{-- Description --}}
         <p class="text-gray-600 dark:text-gray-400 mb-6 line-clamp-2">
@@ -89,15 +93,15 @@
 
         {{-- Footer --}}
         <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
+            {{-- <div class="flex items-center gap-2">
                 <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                 </svg>
                 {{-- <span class="text-sm text-gray-600 dark:text-gray-400">
                     {{ $album->media()->count() }} 
-                    {{ $album->media()->count() === 1 ? 'foto' : 'fotos' }}
-                </span> --}}
-            </div>
+                    {{ $album->media()->count() === 1 ? 'ficheiro' : 'ficheiros' }}
+                </span>
+            </div> --}}
 
             <span class="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 px-3 py-1 rounded-full text-xs font-medium">
                 Álbum

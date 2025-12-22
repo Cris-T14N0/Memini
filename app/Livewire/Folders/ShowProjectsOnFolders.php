@@ -19,6 +19,11 @@ class ShowProjectsOnFolders extends Component
 
     public function mount(Folder $folder)
     {
+        // Authorize: User can only view their own folders
+        if ($folder->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $this->folder = $folder;
     }
 
@@ -57,24 +62,25 @@ class ShowProjectsOnFolders extends Component
     #[Computed]
     public function projects()
     {
-        $query = Project::query()
-            ->where('folder_id', $this->folder->id)
-            ->where('user_id', auth()->id())
-            ->with(['owner', 'folder']);
+        // Get owned projects in THIS folder for THIS user
+        $query = $this->folder->projectAssignments()
+            ->wherePivot('user_id', auth()->id())
+            ->where('projects.user_id', auth()->id())
+            ->with(['owner']);
 
         if ($this->search !== '') {
             $query->where(function ($q) {
-                $q->where('name', 'like', "%{$this->search}%")
-                  ->orWhere('description', 'like', "%{$this->search}%");
+                $q->where('projects.name', 'like', "%{$this->search}%")
+                  ->orWhere('projects.description', 'like', "%{$this->search}%");
             });
         }
 
         match ($this->sortBy) {
-            'date-asc'  => $query->orderBy('created_at', 'asc'),
-            'date-desc' => $query->orderBy('created_at', 'desc'),
-            'name-asc'  => $query->orderBy('name', 'asc'),
-            'name-desc' => $query->orderBy('name', 'desc'),
-            default     => $query->orderBy('created_at', 'desc'),
+            'date-asc'  => $query->orderBy('projects.created_at', 'asc'),
+            'date-desc' => $query->orderBy('projects.created_at', 'desc'),
+            'name-asc'  => $query->orderBy('projects.name', 'asc'),
+            'name-desc' => $query->orderBy('projects.name', 'desc'),
+            default     => $query->orderBy('projects.created_at', 'desc'),
         };
 
         $projects = $query->get();
@@ -88,24 +94,25 @@ class ShowProjectsOnFolders extends Component
     #[Computed]
     public function sharedProjects()
     {
-        $query = auth()->user()->projects()
-            ->where('folder_id', $this->folder->id)
-            ->with(['owner', 'folder'])
-            ->withPivot('role_id');
+        // Get shared projects (not owned by user) in THIS folder for THIS user
+        $query = $this->folder->projectAssignments()
+            ->wherePivot('user_id', auth()->id())
+            ->where('projects.user_id', '!=', auth()->id())
+            ->with(['owner']);
 
         if ($this->search !== '') {
             $query->where(function ($q) {
-                $q->where('name', 'like', "%{$this->search}%")
-                  ->orWhere('description', 'like', "%{$this->search}%");
+                $q->where('projects.name', 'like', "%{$this->search}%")
+                  ->orWhere('projects.description', 'like', "%{$this->search}%");
             });
         }
 
         match ($this->sortBy) {
-            'date-asc'  => $query->orderBy('created_at', 'asc'),
-            'date-desc' => $query->orderBy('created_at', 'desc'),
-            'name-asc'  => $query->orderBy('name', 'asc'),
-            'name-desc' => $query->orderBy('name', 'desc'),
-            default     => $query->orderBy('created_at', 'desc'),
+            'date-asc'  => $query->orderBy('projects.created_at', 'asc'),
+            'date-desc' => $query->orderBy('projects.created_at', 'desc'),
+            'name-asc'  => $query->orderBy('projects.name', 'asc'),
+            'name-desc' => $query->orderBy('projects.name', 'desc'),
+            default     => $query->orderBy('projects.created_at', 'desc'),
         };
 
         return $query->get();

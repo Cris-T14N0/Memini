@@ -53,7 +53,7 @@ class ShowProjects extends Component
     {
         $query = Project::query()
             ->where('user_id', auth()->id())
-            ->with(['owner', 'folder']);
+            ->with(['owner']);
 
         if ($this->search !== '') {
             $query->where(function ($q) {
@@ -82,22 +82,23 @@ class ShowProjects extends Component
     public function sharedProjects()
     {
         $query = auth()->user()->projects()
-            ->with(['owner', 'folder'])
+            ->where('projects.user_id', '!=', auth()->id())
+            ->with(['owner'])
             ->withPivot('role_id');
 
         if ($this->search !== '') {
             $query->where(function ($q) {
-                $q->where('name', 'like', "%{$this->search}%")
-                  ->orWhere('description', 'like', "%{$this->search}%");
+                $q->where('projects.name', 'like', "%{$this->search}%")
+                  ->orWhere('projects.description', 'like', "%{$this->search}%");
             });
         }
 
         match ($this->sortBy) {
-            'date-asc'  => $query->orderBy('created_at', 'asc'),
-            'date-desc' => $query->orderBy('created_at', 'desc'),
-            'name-asc'  => $query->orderBy('name', 'asc'),
-            'name-desc' => $query->orderBy('name', 'desc'),
-            default     => $query->orderBy('created_at', 'desc'),
+            'date-asc'  => $query->orderBy('projects.created_at', 'asc'),
+            'date-desc' => $query->orderBy('projects.created_at', 'desc'),
+            'name-asc'  => $query->orderBy('projects.name', 'asc'),
+            'name-desc' => $query->orderBy('projects.name', 'desc'),
+            default     => $query->orderBy('projects.created_at', 'desc'),
         };
 
         return $query->get();

@@ -27,8 +27,8 @@ class EditAlbumsModal extends ModalComponent
         
         // Load album with project relationship
         $this->album = Album::with('project')->findOrFail($albumId);
-        
-        // Check if user can edit (must be project owner or editor)
+
+        // Check if user can edit (must be project owner or editor ONLY)
         $project = $this->album->project;
         
         if ($project->user_id !== auth()->id()) {
@@ -38,9 +38,11 @@ class EditAlbumsModal extends ModalComponent
                 ?->pivot
                 ?->role_id;
 
-            if (!in_array($userRole, [1, 2])) { // 1 = admin, 2 = editor
+            // Only Editor (role_id = 2) can edit, not Viewer (role_id = 1)
+            if ($userRole !== 2) {
                 session()->flash('error', 'Não tens permissão para editar este álbum.');
                 $this->closeModal();
+                return;
             }
         }
 
@@ -77,18 +79,20 @@ class EditAlbumsModal extends ModalComponent
 
             // Handle new cover image
             if ($this->cover_image) {
-                $userId = Auth::id();
-                
+                // Use project owner's ID for storage
+                $ownerId = $this->album->project->user_id;
+
                 // Delete old image if exists
                 if ($this->existing_cover) {
                     Storage::disk('public')->delete($this->existing_cover);
                 }
-                
+
                 // Store new image
                 $filename = $this->cover_image->hashName();
-                $path = $this->cover_image->storeAs("{$userId}/albums", $filename, 'public');
+                $path = $this->cover_image->storeAs("{$ownerId}/albums", $filename, 'public');
                 
                 $data['cover_image_path'] = $path;
+
                 Log::info('New album cover stored at path: ' . $path);
             }
 
@@ -97,10 +101,9 @@ class EditAlbumsModal extends ModalComponent
             Log::info('Album updated with ID: ' . $this->album->id);
 
             session()->flash('message', 'Álbum atualizado com sucesso!');
-            
             $this->dispatch('albumChanged');
             $this->closeModal();
-            
+
         } catch (Exception $e) {
             Log::error('Album update failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());

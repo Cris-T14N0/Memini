@@ -24,42 +24,41 @@ class DatabaseSeeder extends Seeder
             ->state(['user_id' => $testUser->id])
             ->create();
 
-        // 3️⃣ Create projects with folders
+        // 3️⃣ Create projects and assign them to folders using relationships
         foreach ($folders as $folder) {
             // Each folder gets 2-3 projects
-            Project::factory(rand(2, 3))
-                ->state([
+            $projects = Project::factory(rand(2, 3))
+                ->state(['user_id' => $testUser->id])
+                ->create();
+
+            // Assign projects to folder via relationship
+            foreach ($projects as $project) {
+                $project->folderAssignments()->attach($folder->id, [
                     'user_id' => $testUser->id,
-                    'folder_id' => $folder->id,
-                ])
-                ->create()
-                ->each(function ($project) {
-                    // 3-5 albums per project
-                    Album::factory(rand(3, 5))
-                        ->state([
-                            'project_id' => $project->id,
-                        ])
-                        ->create();
-                });
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                // Create albums for each project
+                Album::factory(rand(3, 5))
+                    ->state(['project_id' => $project->id])
+                    ->create();
+            }
         }
 
         // 4️⃣ Create some projects WITHOUT folders
-        Project::factory(3)
-            ->state([
-                'user_id' => $testUser->id,
-                'folder_id' => null,
-            ])
-            ->create()
-            ->each(function ($project) {
-                Album::factory(rand(2, 4))
-                    ->state([
-                        'project_id' => $project->id,
-                    ])
-                    ->create();
-            });
+        $unorganizedProjects = Project::factory(3)
+            ->state(['user_id' => $testUser->id])
+            ->create();
 
+        foreach ($unorganizedProjects as $project) {
+            Album::factory(rand(2, 4))
+                ->state(['project_id' => $project->id])
+                ->create();
+        }
+
+        // 5️⃣ Create roles
         Role::factory()->viewer()->create();
         Role::factory()->editor()->create();
-        
     }
 }

@@ -6,9 +6,9 @@ use App\Models\Album;
 use App\Models\Project;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Computed;
-use LivewireUI\Modal\ModalComponent;
+use Livewire\Component;
 
-class ShowAlbumsOnProject extends ModalComponent
+class ShowAlbumsOnProject extends Component
 {
     public int $projectId;
     public Project $project;
@@ -62,21 +62,25 @@ class ShowAlbumsOnProject extends ModalComponent
     }
 
     /**
-     * Check if current user can edit albums (owner or editor)
+     * Check if current user can edit albums (owner or editor ONLY)
+     * Viewers (role_id = 1) cannot edit
      */
     public function canEditAlbums(): bool
     {
+        // Owner can always edit
         if ($this->project->user_id === auth()->id()) {
             return true;
         }
 
+        // Check if user is an Editor (role_id = 2)
         $userRole = $this->project->users()
             ->where('user_id', auth()->id())
             ->first()
             ?->pivot
             ?->role_id;
 
-        return in_array($userRole, [1, 2]); // admin or editor
+        // Only Editor (2) can edit, not Viewer (1)
+        return $userRole === 2;
     }
 
     public function render()

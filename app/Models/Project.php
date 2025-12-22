@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,11 +13,10 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 
-        'folder_id', 
-        'name', 
-        'description', 
-        'completed', 
+        'user_id',
+        'name',
+        'description',
+        'completed',
         'cover_image_path'
     ];
 
@@ -25,9 +25,11 @@ class Project extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function folder(): BelongsTo
+    public function users(): BelongsToMany
     {
-        return $this->belongsTo(Folder::class, 'folder_id');
+        return $this->belongsToMany(User::class, 'project_user')
+            ->withPivot('role_id')
+            ->withTimestamps();
     }
 
     public function albums(): HasMany
@@ -40,16 +42,36 @@ class Project extends Model
         return $this->hasMany(ProjectInvitation::class);
     }
 
-    public function users(): BelongsToMany
+    /**
+     * Folders where this project is organized by different users
+     */
+    public function folderAssignments(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'project_user')
-            ->withPivot('role_id')
+        return $this->belongsToMany(Folder::class, 'folder_project_user')
+            ->withPivot('user_id')
             ->withTimestamps();
     }
 
     /**
-     * Get the role for a specific user in this project
+     * Get the folder for a specific user
      */
+    public function folderForUser(int $userId): ?Folder
+    {
+        return $this->folderAssignments()
+            ->wherePivot('user_id', $userId)
+            ->first();
+    }
+
+    /**
+     * Check if in any folder for user
+     */
+    public function isInFolderForUser(int $userId): bool
+    {
+        return $this->folderAssignments()
+            ->wherePivot('user_id', $userId)
+            ->exists();
+    }
+
     public function roleFor(User $user): ?Role
     {
         $projectUser = $this->users()

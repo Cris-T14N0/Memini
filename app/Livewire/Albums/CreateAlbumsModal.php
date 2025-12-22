@@ -33,7 +33,7 @@ class CreateAlbumsModal extends ModalComponent
                   });
         })->findOrFail($projectId);
 
-        // Check if user can create albums (must be owner or editor - role_id 1 or 2)
+        // Check if user can create albums (must be owner or editor - role_id 2 ONLY)
         if ($this->project->user_id !== auth()->id()) {
             $userRole = $this->project->users()
                 ->where('user_id', auth()->id())
@@ -41,7 +41,8 @@ class CreateAlbumsModal extends ModalComponent
                 ?->pivot
                 ?->role_id;
 
-            if (!in_array($userRole, [1, 2])) { // 1 = admin, 2 = editor
+            // Only Editor (role_id = 2) can create, not Viewer (role_id = 1)
+            if ($userRole !== 2) {
                 session()->flash('error', 'Não tens permissão para criar álbuns neste projeto.');
                 $this->closeModal();
             }
@@ -69,14 +70,15 @@ class CreateAlbumsModal extends ModalComponent
         $this->validate();
 
         try {
-            $userId = Auth::id();
-            
+            // Use project owner's ID for storage
+            $ownerId = $this->project->user_id;
+
             // Hash the image name
             $filename = $this->cover_image->hashName();
             
-            // Store in storage/app/public/{user_id}/albums/
-            $path = $this->cover_image->storeAs("{$userId}/albums", $filename, 'public');
-            
+            // Store in storage/app/public/{owner_id}/albums/
+            $path = $this->cover_image->storeAs("{$ownerId}/albums", $filename, 'public');
+
             Log::info('Album cover stored at path: ' . $path);
 
             // Create album
@@ -90,10 +92,9 @@ class CreateAlbumsModal extends ModalComponent
             Log::info('Album created with ID: ' . $album->id);
 
             session()->flash('message', 'Álbum criado com sucesso!');
-            
             $this->dispatch('albumChanged');
             $this->closeModal();
-            
+
         } catch (Exception $e) {
             Log::error('Album creation failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());

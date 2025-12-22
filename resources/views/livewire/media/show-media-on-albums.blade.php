@@ -147,13 +147,14 @@
                                     onclick="window.open('{{ Storage::url($media->file_path) }}', '_blank')"
                                 />
                             @elseif($media->file_type === 'video')
-                                <video 
-                                    class="rounded-lg w-full h-32 object-cover cursor-pointer" 
+                                <video
+                                    class="rounded-lg w-full h-32 object-contain bg-black cursor-pointer"
                                     controls
                                 >
                                     <source src="{{ Storage::url($media->file_path) }}" type="{{ $media->mime_type }}">
                                     O teu navegador não suporta vídeos.
                                 </video>
+
                             @elseif($media->file_type === 'audio')
                                 <div class="flex flex-col items-center justify-center h-32">
                                     <svg class="w-12 h-12 text-gray-500 dark:text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

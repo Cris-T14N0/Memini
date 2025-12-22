@@ -28,12 +28,19 @@ class LeaveSharedProjects extends ModalComponent
 
     public function leaveProject()
     {
+        // Remove project from all of this user's folders
+        $this->project->folderAssignments()
+            ->wherePivot('user_id', auth()->id())
+            ->detach();
+        
         // Remove user from project
         $this->project->users()->detach(auth()->id());
-
+        
         session()->flash('message', 'Saíste do projeto com sucesso!');
         
         $this->dispatch('projectChanged');
+        $this->dispatch('folderChanged');
+        
         $this->closeModal();
     }
 

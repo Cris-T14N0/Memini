@@ -14,10 +14,24 @@ class ProjectFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'folder_id' => null,  // default: no folder
             'name' => $this->faker->sentence(3),
             'description' => $this->faker->paragraph(),
             'completed' => $this->faker->boolean(30),
+            'cover_image_path' => null,
         ];
+    }
+
+    public function forUser(User $user): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'user_id' => $user->id,
+        ]);
+    }
+
+    public function completed(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'completed' => true,
+        ]);
     }
 }

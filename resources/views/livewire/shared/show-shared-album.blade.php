@@ -42,21 +42,21 @@
 
         <!-- Media Grid -->
         @if($medias->count() > 0)
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($medias as $media)
                     <div class="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-green-100/30 dark:border-gray-700 hover:border-green-200 dark:hover:border-green-600 transform hover:-translate-y-1">
                         <!-- Media Container -->
-                        <div class="aspect-square bg-gradient-to-br from-green-50/40 via-white to-green-50/30 dark:from-gray-900 dark:to-gray-800 p-4 relative overflow-hidden">
+                        <div class="aspect-square bg-gradient-to-br from-green-50/40 via-white to-green-50/30 dark:from-gray-900 dark:to-gray-800 p-6 relative overflow-hidden">
                             @if($media->file_type === 'image')
                                 <img 
                                     src="{{ Storage::url($media->file_path) }}" 
                                     alt="{{ $media->file_name }}"
                                     class="w-full h-full object-cover rounded-xl cursor-pointer transition-transform duration-300 group-hover:scale-110" 
-                                    onclick="window.open('{{ Storage::url($media->file_path) }}','_blank')">
+                                    onclick="openImageModal('{{ Storage::url($media->file_path) }}', '{{ $media->file_name }}')">
                                 
                                 <!-- Overlay on hover -->
-                                <div class="absolute inset-4 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center">
-                                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="absolute inset-6 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center pointer-events-none">
+                                    <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
                                     </svg>
                                 </div>
@@ -73,7 +73,7 @@
                                 
                             @elseif($media->file_type === 'audio')
                                 <div class="w-full h-full flex flex-col items-center justify-center p-6">
-                                    <svg class="w-20 h-20 text-green-500/70 dark:text-green-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-24 h-24 text-green-500/70 dark:text-green-400 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
                                     </svg>
                                     <audio controls class="w-full">
@@ -83,18 +83,18 @@
                             @endif
 
                             <!-- File type badge -->
-                            <div class="absolute top-2 right-2 px-3 py-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full text-xs font-semibold text-gray-700 dark:text-gray-300 shadow-lg">
+                            <div class="absolute top-3 right-3 px-3 py-1.5 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full text-xs font-semibold text-gray-700 dark:text-gray-300 shadow-lg">
                                 {{ strtoupper($media->file_type) }}
                             </div>
                         </div>
 
                         <!-- File Info -->
-                        <div class="p-4 bg-gradient-to-br from-green-50/30 via-white to-transparent dark:from-gray-800 dark:to-gray-900">
+                        <div class="p-5 bg-gradient-to-br from-green-50/30 via-white to-transparent dark:from-gray-800 dark:to-gray-900">
                             <p class="text-sm font-medium text-gray-900 dark:text-white truncate" title="{{ $media->file_name }}">
                                 {{ $media->file_name }}
                             </p>
                             @if($media->file_size)
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1.5">
                                     {{ number_format($media->file_size / 1024, 2) }} KB
                                 </p>
                             @endif
@@ -113,4 +113,58 @@
             </div>
         @endif
     </div>
+
+    <!-- Image Preview Modal -->
+    <div id="imageModal" class="hidden fixed inset-0 z-50 overflow-hidden bg-black/90 backdrop-blur-sm" onclick="closeImageModal()">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <!-- Close button -->
+            <button class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-10" onclick="closeImageModal()">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <!-- Image container -->
+            <div class="relative max-w-7xl max-h-[90vh] w-full" onclick="event.stopPropagation()">
+                <img 
+                    id="modalImage" 
+                    src="" 
+                    alt="" 
+                    class="w-full h-full object-contain rounded-lg shadow-2xl">
+                
+                <!-- Image filename -->
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-lg">
+                    <p id="modalImageName" class="text-white text-lg font-medium text-center"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+function openImageModal(imageSrc, imageName) {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalImageName = document.getElementById('modalImageName');
+    
+    modalImage.src = imageSrc;
+    modalImage.alt = imageName;
+    modalImageName.textContent = imageName;
+    
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeImageModal();
+    }
+});
+</script>

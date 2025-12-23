@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Livewire\Albums;
-
 
 use App\Mail\SharedAlbumMail;
 use App\Models\Album;
@@ -20,12 +18,13 @@ class ShareAlbumModal extends ModalComponent
     public $deliverAt = null;
     public $expiresAt = null;
     public $sendImmediately = true;
+    public $sharedLinks = [];
 
     public function mount($albumId)
     {
         $this->albumId = $albumId;
         $this->loadAlbum();
-        
+        $this->loadSharedLinks();
         // Set default expiration to 30 days from now
         $this->expiresAt = now()->addDays(30)->format('Y-m-d');
     }
@@ -42,6 +41,14 @@ class ShareAlbumModal extends ModalComponent
         if (!$isOwner && !$isCollaborator) {
             abort(403, 'Não tens acesso a este álbum.');
         }
+    }
+
+    public function loadSharedLinks()
+    {
+        $this->sharedLinks = SharedLink::where('album_id', $this->albumId)
+            ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 
     public function updatedSendImmediately($value)
@@ -90,17 +97,39 @@ class ShareAlbumModal extends ModalComponent
             if ($this->sendImmediately) {
                 SendSharedAlbumEmail::dispatch($sharedLink);
                 session()->flash('message', 'Email enviado com sucesso!');
-            }
-            else {
+            } else {
                 // Email will be sent by scheduled task
                 session()->flash('message', 'Email agendado para ' . \Carbon\Carbon::parse($this->deliverAt)->format('d/m/Y H:i'));
             }
 
-            $this->closeModal();
+            // Reload shared links
+            $this->loadSharedLinks();
+            
+            // Reset form
+            $this->reset(['email', 'message', 'deliverAt']);
+            $this->expiresAt = now()->addDays(30)->format('Y-m-d');
+            $this->sendImmediately = true;
 
         } catch (\Exception $e) {
             \Log::error('Failed to share album: ' . $e->getMessage());
             session()->flash('error', 'Erro ao partilhar álbum: ' . $e->getMessage());
+        }
+    }
+
+    public function deleteSharedLink($linkId)
+    {
+        try {
+            $link = SharedLink::where('id', $linkId)
+                ->where('user_id', Auth::id())
+                ->where('album_id', $this->albumId)
+                ->firstOrFail();
+            
+            $link->delete();
+            $this->loadSharedLinks();
+            
+            session()->flash('message', 'Link removido com sucesso!');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Erro ao remover link.');
         }
     }
 

@@ -14,11 +14,12 @@ return new class extends Migration {
         Schema::create('shared_links', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('project_id')->nullable()->constrained('projects')->onDelete('cascade');
             $table->foreignId('album_id')->nullable()->constrained('albums')->onDelete('cascade');
             $table->char('token', 64)->unique();
             $table->string('email', 255)->nullable(); // Nullable for manual sharing
+            $table->text('message')->nullable();
             $table->timestamp('deliver_at')->nullable(); // For scheduled email delivery
+            $table->timestamp('sent_at')->nullable();
             $table->timestamp('expires_at')->nullable(); // For link expiration
             $table->timestamps();
         });

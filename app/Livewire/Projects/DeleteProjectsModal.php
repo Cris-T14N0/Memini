@@ -3,6 +3,7 @@
 namespace App\Livewire\Projects;
 
 use App\Models\Project;
+use Exception;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
@@ -105,7 +106,8 @@ class DeleteProjectsModal extends ModalComponent
             $this->dispatch('folderChanged');
             $this->closeModal();
 
-        } catch (\Exception $e) {
+        } catch (Exception $e)
+        {
             Log::error('Project deletion failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
             session()->flash('error', 'Erro ao eliminar projeto: ' . $e->getMessage());

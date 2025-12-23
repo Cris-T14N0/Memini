@@ -285,28 +285,7 @@
             <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
                 <!-- Form -->
                 <div>
-                    <form class="space-y-6">
-                        <div>
-                            <label class="form-label block text-sm font-semibold mb-2">Insira o seu nome:</label>
-                            <input type="text"
-                                placeholder="Insira aqui (de preferência) o seu nome completo."
-                                class="form-input w-full px-4 py-3 rounded-md">
-                        </div>
-
-                        <div>
-                            <label class="form-label block text-sm font-semibold mb-2">Insira o seu email:</label>
-                            <input type="email"
-                                placeholder="Insira aqui o seu email."
-                                class="form-input w-full px-4 py-3 rounded-md">
-                        </div>
-
-                        <div>
-                            <label class="form-label block text-sm font-semibold mb-2">Qual é a sua pergunta?</label>
-                            <textarea rows="4"
-                                placeholder="Questione."
-                                class="form-input w-full px-4 py-3 rounded-md resize-none"></textarea>
-                        </div>
-                    </form>
+                    <livewire:landing-page.contact-form />
                 </div>
 
                 <!-- Contact Info -->

@@ -1,60 +1,87 @@
 <?php
 
-use App\Http\Controllers\InvitationController;
+use App\Livewire\Shared\ShowSharedAlbum;
 use App\Models\Album;
 use App\Models\Folder;
 use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'index');
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/invitations/accept/{token}', [InvitationController::class, 'accept']);
+Route::view('/', 'index')->name('home');
 
+// Shared Album Route (PUBLIC - no auth required)
+Route::get('/shared/{token}', function($token) {
+    return view('shared.album', compact('token'));
+})->name('shared.show');
 
-// Route Dashboard
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+/*
+|--------------------------------------------------------------------------
+| Authentication Routes
+|--------------------------------------------------------------------------
+*/
 
-// Route Dashboard Pastas
-Route::view('folders.folders-dashboard', 'folders.folders-dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('folders-dashboard');
+require __DIR__.'/auth.php';
 
-Route::get('/folders/{folder}', function (Folder $folder) {
-    return view('folders.projects-on-folders-dashboard', compact('folder'));})
-    ->middleware(['auth', 'verified'])
-    ->name('folders.show');
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+*/
 
-
-// Route Dashboard Projetos
-Route::view('projects.projects-dashboard', 'projects.projects-dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('projects-dashboard');
-
-// Route Dashboard Álbuns
-Route::view('albums.albums-on-project', 'albums.albums-on-project')
-    ->middleware(['auth', 'verified'])
-    ->name('albums-dashboard');
-
-// Route Dashboard Álbuns
-Route::view('livewire.albuns.albuns-media-dashboard', 'livewire.albuns.albuns-media-dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('media-dashboard');
-
-Route::get('/projects/{project}/albums', function (Project $project) {
-    // Verify user has access to the project
-    if ($project->user_id !== auth()->id() && 
-        !$project->users()->where('user_id', auth()->id())->exists()) {
-        abort(403, 'Unauthorized');
-    }
+Route::middleware(['auth', 'verified'])->group(function () {
     
-    return view('albums.albums-on-project', ['projectId' => $project->id]);
-})->middleware(['auth', 'verified'])->name('projects.albums');
-
-Route::middleware(['auth'])->group(function () {
-
-    // Album Media Route
+    // Dashboard
+    Route::view('dashboard', 'dashboard')->name('dashboard');
+    
+    // Profile
+    Route::view('profile', 'profile')->name('profile');
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Folders Routes
+    |--------------------------------------------------------------------------
+    */
+    
+    Route::view('folders.folders-dashboard', 'folders.folders-dashboard')
+        ->name('folders-dashboard');
+    
+    Route::get('/folders/{folder}', function (Folder $folder) {
+        return view('folders.projects-on-folders-dashboard', compact('folder'));
+    })->name('folders.show');
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Projects Routes
+    |--------------------------------------------------------------------------
+    */
+    
+    Route::view('projects.projects-dashboard', 'projects.projects-dashboard')
+        ->name('projects-dashboard');
+    
+    Route::get('/projects/{project}/albums', function (Project $project) {
+        // Verify user has access to the project
+        if ($project->user_id !== auth()->id() && 
+            !$project->users()->where('user_id', auth()->id())->exists()) {
+            abort(403, 'Não autorizado');
+        }
+        
+        return view('albums.albums-on-project', ['projectId' => $project->id]);
+    })->name('projects.albums');
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Albums Routes
+    |--------------------------------------------------------------------------
+    */
+    
+    Route::view('albums.albums-on-project', 'albums.albums-on-project')
+        ->name('albums-dashboard');
+    
     Route::get('/albums/{album}', function (Album $album) {
         // Check if user has access to this album's project
         $project = $album->project;
@@ -70,15 +97,13 @@ Route::middleware(['auth'])->group(function () {
         
         return view('media.media-on-albums', ['album' => $album]);
     })->name('albums.show');
-
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Media Routes
+    |--------------------------------------------------------------------------
+    */
+    
+    Route::view('livewire.albuns.albuns-media-dashboard', 'livewire.albuns.albuns-media-dashboard')
+        ->name('media-dashboard');
 });
-
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
-
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
-
-require __DIR__.'/auth.php';

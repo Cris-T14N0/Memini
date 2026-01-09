@@ -20,7 +20,7 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex-shrink-0">
-                    <img src="http://localhost/assets/img/logo-dark.png" alt="Memini Logo" class="object-contain">
+                    <img src="https://ninfa-unweakening-adroitly.ngrok-free.dev/assets/img/logo-dark.png" alt="Memini Logo" class="object-contain">
                 </div>
 
                 <div class="hidden md:flex flex-1 justify-center space-x-8">
@@ -161,7 +161,7 @@
 
             <!-- Imagem Hero -->
             <div class="relative rounded-lg overflow-hidden mb-12 max-w-5xl mx-auto">
-                <img src="http://localhost/assets/img/landing-page/familia-feliz.png" alt="Família feliz" class="w-full h-96 object-cover">
+                <img src="https://ninfa-unweakening-adroitly.ngrok-free.dev/assets/img/landing-page/familia-feliz.png" alt="Família feliz" class="w-full h-96 object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                     <div class="p-8">
                         <p class="mission-label text-sm uppercase mb-2">Nossa Missão</p>
@@ -310,7 +310,7 @@
                 <!-- Coluna 1 - Logo e Descrição -->
                 <div class="footer-col-logo">
                     <div class="mb-4">
-                        <img src="http://localhost/assets/img/logo-dark.png" alt="Memini Logo" class="footer-logo">
+                        <img src="http://ninfa-unweakening-adroitly.ngrok-free.dev/assets/img/logo-dark.png" alt="Memini Logo" class="footer-logo">
                     </div>
                     <p class="footer-text">
                         Memini é uma plataforma segura e privada para guardar, organizar e compartilhar memórias familiares. Crie projetos e álbuns, faça upload de fotos, vídeos e áudios, e compartilhe momentos especiais com quem você escolher, mantendo suas lembranças sempre protegidas e organizadas.

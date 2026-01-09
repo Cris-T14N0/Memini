@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvitationController;
 use App\Livewire\Shared\ShowSharedAlbum;
 use App\Models\Album;
 use App\Models\Folder;
@@ -59,6 +60,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     | Projects Routes
     |--------------------------------------------------------------------------
     */
+
+    Route::get('/invitations/accept/{token}', [InvitationController::class, 'accept'])
+    ->name('invitations.accept');
     
     Route::view('projects.projects-dashboard', 'projects.projects-dashboard')
         ->name('projects-dashboard');

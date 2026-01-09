@@ -108,19 +108,6 @@ new class extends Component {
                 <span class="font-medium">Projetos</span>
             </a>
 
-            <!-- Álbum Link -->
-            {{--
-            <a href="{{ route('albuns-dashboard') }}" wire:navigate
-                class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 4h7.5a1.5 1.5 0 0 1 1.5 1.5v13a1.5 1.5 0 0 1-1.5 1.5H12m0-16v16m0-16H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6m0-16v16" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h3m-3 3h3m-3 3h3" />
-                </svg>
-                <span class="font-medium">Álbuns</span>
-            </a>
-            --}}
         </div>
 
         <!-- User Dropdown -->
@@ -133,13 +120,11 @@ new class extends Component {
                 <div class="flex items-center gap-2">
                     <!-- User avatar -->
                     @if(Auth::user()->profile_photo)
-                        <img src="{{ Storage::url(Auth::user()->profile_photo) }}"
-                            alt="{{ Auth::user()->name }}" 
-                            class="w-8 h-8 rounded-full object-cover">
+                        <img src="{{ Storage::url(Auth::user()->profile_photo) }}" alt="{{ Auth::user()->name }}" class="w-10 h-10 rounded-full">
                     @else
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random"
-                            alt="{{ Auth::user()->name }}" 
-                            class="w-8 h-8 rounded-full object-cover">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
+                            {{ Auth::user()->getInitials() }}
+                        </div>
                     @endif
 
                     <!-- Username -->
@@ -162,12 +147,12 @@ new class extends Component {
 
                 <a href="{{ route('profile') }}" wire:navigate
                     class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                    Profile
+                    Perfil
                 </a>
 
                 <button wire:click="logout"
                     class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                    Log Out
+                    Log Out | Sair
                 </button>
             </div>
         </div>

@@ -135,10 +135,15 @@
         {{-- Footer --}}
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <img src="{{ $project->owner->profile_photo
-    ? Storage::url($project->owner->profile_photo)
-    : 'https://ui-avatars.com/api/?name=' . urlencode($project->owner->name) }}"
-                    class="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700">
+                @if($project->owner->profile_photo)
+                    <img src="{{ Storage::url($project->owner->profile_photo) }}"
+                        alt="{{ $project->owner->name }}"
+                        class="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700">
+                @else
+                    <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold text-xs ring-2 ring-gray-200 dark:ring-gray-700">
+                        {{ $project->owner->getInitials() }}
+                    </div>
+                @endif
                 <span class="text-sm text-gray-600 dark:text-gray-400">
                     {{ $project->owner->name }}
                 </span>

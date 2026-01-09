@@ -30,7 +30,7 @@
                                 Quem te convidou: {{ $invitation->project->owner->name }}
                             </p>
                             <!-- Call to Action Button -->
-                            <a href="{{ url('/invitations/accept/'.$invitation->token) }}" style="display: inline-block; background-color: #6d712e; color: #ffffff; font-size: 18px; padding: 16px 40px; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 10px rgba(109, 113, 46, 0.2); transition: background-color 0.3s;">
+                            <a href="{{ route('invitations.accept', $invitation->token) }}" style="display: inline-block; background-color: #6d712e; color: #ffffff; font-size: 18px; padding: 16px 40px; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 10px rgba(109, 113, 46, 0.2); transition: background-color 0.3s;">
                                 Aceitar Convite
                             </a>
                             <p style="font-size: 14px; line-height: 1.6; color: #888888; margin: 40px 0 0;">

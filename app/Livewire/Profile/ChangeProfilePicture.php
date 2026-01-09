@@ -49,6 +49,7 @@ class ChangeProfilePicture extends Component
         $this->photo = null;
         $this->dispatch('profile-photo-updated');
         session()->flash('success', 'Foto de perfil atualizada com sucesso!');
+        redirect('profile');
     }
 
     public function deleteProfilePhoto(): void

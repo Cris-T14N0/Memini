@@ -86,9 +86,17 @@
                 <div class="flex items-center justify-between p-3 bg-white dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600">
                     <div class="flex items-center gap-3 flex-1 min-w-0">
                         <!-- Avatar -->
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-semibold flex-shrink-0">
-                            {{ $user->initials() }}
-                        </div>
+                        @if($user->profile_photo)
+                            <img 
+                                src="{{ Storage::url($user->profile_photo) }}" 
+                                alt="{{ $user->name }}"
+                                class="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                            >
+                        @else
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                                {{ $user->getInitials() }}
+                            </div>
+                        @endif
                         
                         <div class="min-w-0 flex-1">
                             <p class="font-medium text-gray-900 dark:text-gray-100 truncate">{{ $user->name }}</p>
